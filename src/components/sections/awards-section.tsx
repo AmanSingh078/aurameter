@@ -5,11 +5,11 @@ import { useIsMobile } from '../../hooks/use-mobile';
 
 // Updated reward data - separating icons and descriptions
 const rewardsData = [
-  { title: "Gift Cards", value: "Unlimited", icon: "💳", bgColor: "bg-black", description: "Earn unlimited gift cards from your favorite brands" },
-  { title: "Gift Cards", value: "Monthly", icon: "💳", bgColor: "bg-black", description: "Monthly rewards from premium retailers" },
+  { title: "Unlimited", value: "Gift Cards", icon: "💳", bgColor: "bg-black", description: "Earn unlimited gift cards from your favorite brands" },
   { title: "Experiences", value: "Weekly", icon: "🚀", bgColor: "bg-black", description: "Exclusive weekly events and activities" },
   { title: "Merchandise", value: "Weekly", icon: "🛍", bgColor: "bg-black", description: "Trendy merchandise from top brands" },
   { title: "Charity", value: "Daily", icon: "🎁", bgColor: "bg-black", description: "Support causes you care about daily" },
+  { title: "Gift Cards", value: "Monthly", icon: "💳", bgColor: "bg-black", description: "Monthly rewards from premium retailers" },
   { title: "Donations", value: "Daily", icon: "❤", bgColor: "bg-black", description: "Make an impact with daily donations" }
 ];
 
@@ -71,9 +71,9 @@ const AwardsSection = () => {
           <p className={`${textSize} text-gray-400/90 leading-[1.6] max-w-[520px] mx-auto lg:mx-0`}>
             Transform your social media experience...
             <br />
-            On outran im sptul astih alondising soluvods tha
+            From boring doom-scrooling to Aura Farming
             <br />
-            briopierse you businesss thrive.
+            with real things that are actually worth and easy to do.
           </p>
         </div>
 

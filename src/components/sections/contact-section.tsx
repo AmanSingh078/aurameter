@@ -57,9 +57,8 @@ const ContactSection = () => {
             >
               <span className="block">Join the</span>
               <span className="block text-yellow-400 font-serif italic font-bold">
-                <span className="text-yellow-300 font-bold">Aura</span>Meter
+                <span className="text-yellow-300 font-bold">Revolution </span>
               </span>
-              <span className="block">Revolution</span>
             </h2>
             
             <div 
@@ -68,12 +67,11 @@ const ContactSection = () => {
                 transform: `translateY(${parallaxValue * 0.05}px)`
               }}
             >
-              <p className="mb-4">
-                Ready to transform your social media experience? Download AuraMeter today and start your journey toward authentic connection and emotional growth.
-              </p>
               <p>
-                Be among the first to experience the future of mindful social interaction.
+                The Auraverse is opening and only the early ones will get in, be the first to experience the future of social interaction.
               </p>
+              <p className="mt-4"> Your aura deserves a VIP pass Limited availability. This isn’t for everyone just the real vibes.
+ </p>
             </div>
             
             <div className="flex flex-wrap justify-center gap-4">
@@ -84,7 +82,7 @@ const ContactSection = () => {
                   transform: `translateY(${isInView ? 0 : 20}px)`
                 }}
               >
-                <span className="relative z-10">Join Waitlist</span>
+                <span className="relative z-10">Claim My VIP Pass</span>
               </a>
               
               <a 
@@ -94,8 +92,11 @@ const ContactSection = () => {
                   transform: `translateY(${isInView ? 0 : 20}px)`
                 }}
               >
-                Contact Us
+                Join Us
               </a>
+            </div>
+            <div className="mt-12 text-sm text-foreground/60 italic">
+            <p> Don’t be the guy who discovers it later on someone else’s story.</p>
             </div>
           </div>
         </div>

@@ -7,8 +7,8 @@ const NavigationHeader = () => {
     const navLinks = [
         { href: '#about-section', label: 'About' },
         { href: '#work', label: 'Work' },
-        { href: '#recognition', label: 'Recognition' },
-        { href: '#contact-us', label: 'Contact us' },
+        { href: '#recognition', label: 'Rewards' },
+        { href: '#contact-us', label: 'Join us' },
         // Removed Hello link
     ];
 

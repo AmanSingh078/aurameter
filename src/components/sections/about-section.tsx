@@ -180,8 +180,8 @@ const AboutSection = () => {
                     opacity: isInView ? 1 : 0
                   }}
                 >
-                  <em className="italic text-white font-extrabold">Emotional</em>
-                  <span className="font-extrabold text-yellow-400">Intelligence</span>
+                  <em className="italic text-white font-extrabold">Real</em>
+                  <span className="font-extrabold text-yellow-400">Rewards</span>
                 </li>
                 <li 
                   className="flex flex-wrap items-baseline gap-x-2 md:gap-x-3 animate-slide-in-up justify-center uppercase font-extrabold italic font-serif" 
@@ -193,8 +193,8 @@ const AboutSection = () => {
                     opacity: isInView ? 1 : 0
                   }}
                 >
-                  <em className="italic text-yellow-400 font-extrabold">Real</em>
-                  <span className="font-extrabold text-white">Rewards</span>
+                  <em className="italic text-yellow-400 font-extrabold">Interactive</em>
+                  <span className="font-extrabold text-white">Games</span>
                 </li>
                 <li 
                   className="flex flex-wrap items-baseline gap-x-2 md:gap-x-3 animate-slide-in-up justify-center uppercase font-extrabold italic font-serif" 
@@ -206,8 +206,8 @@ const AboutSection = () => {
                     opacity: isInView ? 1 : 0
                   }}
                 >
-                  <span className="font-extrabold text-white">Positive</span>
-                  <span className="text-yellow-300 font-extrabold font-serif">Energy</span>
+                  <span className="font-extrabold text-white">Just</span>
+                  <span className="text-yellow-300 font-extrabold font-serif">Postivity</span>
                 </li>
                 <li 
                   className="flex flex-wrap items-baseline gap-x-2 md:gap-x-3 animate-slide-in-up justify-center uppercase font-extrabold italic font-serif" 

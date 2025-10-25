@@ -182,17 +182,17 @@ const HeroSection = () => {
                     <>
                       <div className="relative animate-float" style={{ animationDelay: '1s', animationDuration: '5s' }}>
                         <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-                          <span className="text-overline">WE</span>
+                          <span className="text-overline">JOIN</span>
                         </div>
                       </div>
                       <div className="relative animate-float" style={{ animationDelay: '2s', animationDuration: '5s' }}>
                         <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center">
-                          <span className="text-overline">ARE</span>
+                          <span className="text-overline">THE</span>
                         </div>
                       </div>
                       <div className="animate-float" style={{ animationDelay: '3s', animationDuration: '5s' }}>
                         <p className="text-[clamp(20px,2.5vw,32px)] font-bold leading-tight tracking-tight text-right">
-                          YOUR<br />AURA
+                          AURA  <br />VERSE
                         </p>
                       </div>
                     </>
@@ -200,13 +200,13 @@ const HeroSection = () => {
                     // Simplified version for mobile
                     <div className="flex items-center gap-1">
                       <div className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center">
-                        <span className="text-[8px] font-bold">WE</span>
+                        <span className="text-[8px] font-bold">JOIN</span>
                       </div>
                       <div className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center">
-                        <span className="text-[8px] font-bold">ARE</span>
+                        <span className="text-[8px] font-bold">THE</span>
                       </div>
                       <p className="text-[16px] font-bold leading-tight text-right">
-                        YOUR<br />AURA
+                        AURA<br/> VERSE
                       </p>
                     </div>
                   )}
@@ -220,14 +220,14 @@ const HeroSection = () => {
                 <div className="relative inline-block">
                   <p className="text-[clamp(18px,2vw,24px)] leading-[1.3] text-white font-bold mb-3 relative z-10">
                     Stop chasing likes.<br />
-                    <span className="text-yellow-400">Start growing your aura.</span>
+                    <span className="text-yellow-400">Start Building Aura.</span>
                   </p>
                   <div className="absolute -inset-1 bg-yellow-400 opacity-10 blur rounded-lg"></div>
                 </div>
                 <div className="relative inline-block mt-6">
                   <p className="text-[clamp(14px,1.5vw,18px)] leading-[1.6] text-white/80 max-w-md mx-auto lg:mx-0 lg:ml-auto italic relative z-10">
-                    <span className="text-white">AI-powered emotional intelligence</span> meets social connection. 
-                    Earn rewards for <span className="text-yellow-400 font-bold">authenticity</span>, not attention.
+                    <span className="text-white">Your worth isn’t in numbers,</span>  it’s in energy. 
+                    <span className="text-yellow-400 font-bold"> AuraMeter </span> turns your vibe into value..
                   </p>
                   <div className="absolute -inset-1 bg-white opacity-5 blur rounded-lg"></div>
                 </div>
@@ -257,10 +257,10 @@ const HeroSection = () => {
                   {/* Download text inside the circle */}
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-2 z-10">
                     <p className="text-[12px] font-bold leading-tight text-yellow-400">
-                      DOWNLOAD
+                      DOWNLOAD & 
                     </p>
                     <p className="text-[10px] font-bold italic text-yellow-400 mt-1">
-                      START AURA FARMING
+                      START FARMING
                     </p>
                   </div>
                   
