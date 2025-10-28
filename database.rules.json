@@ -1,0 +1,55 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": "auth != null",
+    "colleges": {
+      ".indexOn": ["name"],
+      "$collegeId": {
+        ".read": true,
+        ".write": "auth != null",
+        "name": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        },
+        "campusCEO": {
+          ".write": "auth != null",
+          "name": {
+            ".validate": "newData.isString() && newData.val().length > 0"
+          },
+          "email": {
+            ".validate": "newData.isString() && newData.val().matches(/^[^@]+@[^@]+\\.[^@]+$/)"
+          },
+          "phone": {
+            ".validate": "newData.isString()"
+          },
+          "timestamp": {
+            ".validate": "newData.isNumber()"
+          }
+        },
+        "waitlist": {
+          ".read": true,
+          ".write": "auth != null",
+          ".indexOn": ["email"],
+          "$waitlistId": {
+            ".validate": "newData.hasChildren(['name', 'email', 'timestamp'])",
+            "name": {
+              ".validate": "newData.isString() && newData.val().length > 0"
+            },
+            "email": {
+              ".validate": "newData.isString() && newData.val().matches(/^[^@]+@[^@]+\\.[^@]+$/)"
+            },
+            "timestamp": {
+              ".validate": "newData.isNumber()"
+            },
+            "$other": {
+              ".validate": false
+            }
+          }
+        }
+      }
+    },
+    "test": {
+      ".read": true,
+      ".write": true
+    }
+  }
+}

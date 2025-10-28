@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurameter 2025 - Campus Waitlist</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3a0ca3;
+            --secondary: #7209b7;
+            --accent: #4cc9f0;
+            --success: #4bb543;
+            --warning: #fca311;
+            --error: #e63946;
+            --surface: #ffffff;
+            --surface-variant: #f8f9fa;
+            --on-surface: #212529;
+            --on-surface-variant: #6c757d;
+            --border: #e9ecef;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Titillium Web', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--on-surface);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 24px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo i {
+            font-size: 1.4rem;
+        }
+
+        .header-content {
+            margin-top: 16px;
+        }
+
+        .header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1rem;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 12px;
+        }
+
+        .form-container {
+            padding: 32px 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--on-surface);
+            font-size: 0.95rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--surface);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--on-surface-variant);
+        }
+
+        .autocomplete-list {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .autocomplete-item {
+            padding: 12px 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .autocomplete-item:hover {
+            background-color: var(--surface-variant);
+        }
+
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+
+        .autocomplete-icon {
+            color: var(--primary);
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(67, 97, 238, 0.25);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1.5px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(67, 97, 238, 0.05);
+        }
+
+        .btn-success {
+            background: var(--success);
+        }
+
+        .btn-success:hover {
+            background: #3a9c35;
+        }
+
+        .link-container {
+            text-align: center;
+            margin-top: 24px;
+        }
+
+        .link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .link:hover {
+            color: var(--primary-dark);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .message {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .success {
+            background-color: rgba(75, 181, 67, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .error {
+            background-color: rgba(230, 57, 70, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .info {
+            background-color: rgba(76, 201, 240, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--accent);
+        }
+
+        .tabs {
+            display: flex;
+            margin-bottom: 24px;
+            background: var(--surface-variant);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-sm);
+            color: var(--on-surface-variant);
+        }
+
+        .tab.active {
+            background: var(--surface);
+            color: var(--primary);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .loader {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--on-surface-variant);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .stat {
+            flex: 1;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--on-surface-variant);
+            margin-top: 4px;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 24px 0;
+        }
+
+        .feature-list {
+            margin: 20px 0;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary-light);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-chart-line"></i>
+                <span>Aurameter 2025</span>
+            </div>
+            <div class="header-content">
+                <h1>Campus Waitlist</h1>
+                <p>Join the waitlist for your college or apply to become a Campus CEO</p>
+                <div class="badge">Limited spots available</div>
+            </div>
+        </div>
+        
+        <div class="form-container">
+            <div class="tabs">
+                <div class="tab active" id="waitlist-tab">Join Waitlist</div>
+                <div class="tab" id="ceo-tab">Become Campus CEO</div>
+            </div>
+            
+            <!-- Waitlist Form -->
+            <form id="waitlist-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="name" placeholder="Enter your full name" required>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="college">College Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="college" placeholder="Start typing your college name" required autocomplete="off">
+                        <i class="fas fa-university input-icon"></i>
+                        <div id="college-autocomplete" class="autocomplete-list hidden"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="email" placeholder="Enter your email address" required>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn" id="waitlist-submit">
+                    <span class="btn-text">Join Waitlist</span>
+                </button>
+            </form>
+            
+            <!-- Campus CEO Form -->
+            <form id="ceo-form" class="hidden">
+                <div class="message info">
+                    <i class="fas fa-info-circle"></i>
+                    <p>As a Campus CEO, you'll represent our brand on your campus and earn exciting rewards!</p>
+                </div>
+                
+                <div class="feature-list">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <span>Exclusive leadership opportunities</span>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <span>Rewards and incentives</span>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span>Build your network</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ceo-name">Full Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="ceo-name" placeholder="Enter your full name" required>
+                        <i class="fas fa-user input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ceo-college">College Name</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="ceo-college" placeholder="Start typing your college name" required autocomplete="off">
+                        <i class="fas fa-university input-icon"></i>
+                        <div id="ceo-college-autocomplete" class="autocomplete-list hidden"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ceo-email">Email Address</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="ceo-email" placeholder="Enter your email address" required>
+                        <i class="fas fa-envelope input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-wrapper">
+                        <input type="tel" id="phone" placeholder="Enter your phone number" required>
+                        <i class="fas fa-phone input-icon"></i>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-success" id="ceo-submit">
+                    <span class="btn-text">Apply as Campus CEO</span>
+                </button>
+            </form>
+            
+            <div class="divider"></div>
+            
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-value">1.2K+</div>
+                    <div class="stat-label">Students Joined</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">85</div>
+                    <div class="stat-label">Campuses</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">32</div>
+                    <div class="stat-label">Campus CEOs</div>
+                </div>
+            </div>
+            
+            <div class="link-container">
+                <a href="#" id="learn-more-link" class="link">
+                    <span>Learn more about Campus CEO program</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            
+            <div id="message-container"></div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2023 Aurameter 2025. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB-OiqfFGOGCOSN-wJmIJqNkNkPxqE0rSg",
+            authDomain: "aura-21fa2.firebaseapp.com",
+            databaseURL: "https://aura-21fa2-default-rtdb.firebaseio.com",
+            projectId: "aura-21fa2",
+            storageBucket: "aura-21fa2.firebasestorage.app",
+            messagingSenderId: "371251994547",
+            appId: "1:371251994547:web:195555e45357cb2529b5c6",
+            measurementId: "G-2RKQ61LYN7"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+
+        // DOM elements
+        const waitlistForm = document.getElementById('waitlist-form');
+        const ceoForm = document.getElementById('ceo-form');
+        const waitlistTab = document.getElementById('waitlist-tab');
+        const ceoTab = document.getElementById('ceo-tab');
+        const learnMoreLink = document.getElementById('learn-more-link');
+        const messageContainer = document.getElementById('message-container');
+        const collegeInput = document.getElementById('college');
+        const ceoCollegeInput = document.getElementById('ceo-college');
+        const collegeAutocomplete = document.getElementById('college-autocomplete');
+        const ceoCollegeAutocomplete = document.getElementById('ceo-college-autocomplete');
+
+        // Sample college data (in a real app, this would come from Firebase)
+        let allColleges = [];
+
+        // Fetch colleges from Firebase
+        async function fetchColleges() {
+            try {
+                const collegesRef = database.ref('colleges');
+                const snapshot = await collegesRef.once('value');
+                
+                if (snapshot.exists()) {
+                    const collegesData = snapshot.val();
+                    allColleges = Object.values(collegesData).map(college => college.name);
+                } else {
+                    // If no colleges in database, use sample data
+                    allColleges = [
+                        "Harvard University",
+                        "Stanford University",
+                        "Massachusetts Institute of Technology",
+                        "California Institute of Technology",
+                        "University of Cambridge",
+                        "University of Oxford",
+                        "Columbia University",
+                        "University of Chicago",
+                        "Princeton University",
+                        "Yale University",
+                        "University of Pennsylvania",
+                        "University of Michigan",
+                        "University of California, Berkeley",
+                        "University of California, Los Angeles",
+                        "New York University",
+                        "University of Texas at Austin",
+                        "University of Illinois at Urbana-Champaign",
+                        "University of Washington",
+                        "University of Wisconsin-Madison",
+                        "University of North Carolina at Chapel Hill"
+                    ];
+                }
+            } catch (error) {
+                console.error("Error fetching colleges:", error);
+            }
+        }
+
+        // Initialize college data
+        fetchColleges();
+
+        // Tab switching functionality
+        waitlistTab.addEventListener('click', () => {
+            waitlistTab.classList.add('active');
+            ceoTab.classList.remove('active');
+            waitlistForm.classList.remove('hidden');
+            ceoForm.classList.add('hidden');
+        });
+
+        ceoTab.addEventListener('click', () => {
+            ceoTab.classList.add('active');
+            waitlistTab.classList.remove('active');
+            ceoForm.classList.remove('hidden');
+            waitlistForm.classList.add('hidden');
+        });
+
+        // Learn more link
+        learnMoreLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            ceoTab.click();
+        });
+
+        // Show message function
+        function showMessage(message, type) {
+            messageContainer.innerHTML = `
+                <div class="message ${type}">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <p>${message}</p>
+                </div>
+            `;
+            setTimeout(() => {
+                messageContainer.innerHTML = '';
+            }, 5000);
+        }
+
+        // Autocomplete functionality
+        function setupAutocomplete(inputElement, autocompleteElement) {
+            inputElement.addEventListener('input', function() {
+                const value = this.value.toLowerCase();
+                autocompleteElement.innerHTML = '';
+                
+                if (value.length < 2) {
+                    autocompleteElement.classList.add('hidden');
+                    return;
+                }
+                
+                const filteredColleges = allColleges.filter(college => 
+                    college.toLowerCase().includes(value)
+                );
+                
+                if (filteredColleges.length === 0) {
+                    autocompleteElement.classList.add('hidden');
+                    return;
+                }
+                
+                filteredColleges.slice(0, 5).forEach(college => {
+                    const item = document.createElement('div');
+                    item.classList.add('autocomplete-item');
+                    item.innerHTML = `
+                        <i class="fas fa-university autocomplete-icon"></i>
+                        <span>${college}</span>
+                    `;
+                    item.addEventListener('click', function() {
+                        inputElement.value = college;
+                        autocompleteElement.classList.add('hidden');
+                    });
+                    autocompleteElement.appendChild(item);
+                });
+                
+                autocompleteElement.classList.remove('hidden');
+            });
+            
+            // Hide autocomplete when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!inputElement.contains(e.target) && !autocompleteElement.contains(e.target)) {
+                    autocompleteElement.classList.add('hidden');
+                }
+            });
+        }
+
+        // Initialize autocomplete for both forms
+        setupAutocomplete(collegeInput, collegeAutocomplete);
+        setupAutocomplete(ceoCollegeInput, ceoCollegeAutocomplete);
+
+        // Waitlist form submission
+        waitlistForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const college = document.getElementById('college').value;
+            const email = document.getElementById('email').value;
+            
+            // Show loading state
+            const submitBtn = document.getElementById('waitlist-submit');
+            const btnText = submitBtn.querySelector('.btn-text');
+            btnText.textContent = 'Processing...';
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loader"></div> Processing...';
+            
+            try {
+                // Check if college already exists in Firebase
+                const collegesRef = database.ref('colleges');
+                const snapshot = await collegesRef.orderByChild('name').equalTo(college).once('value');
+                
+                if (snapshot.exists()) {
+                    // College exists, add to waitlist
+                    const collegeData = Object.values(snapshot.val())[0];
+                    const collegeKey = Object.keys(snapshot.val())[0];
+                    const waitlistRef = database.ref(`colleges/${collegeKey}/waitlist`);
+                    
+                    // Check if email already exists in waitlist
+                    const emailSnapshot = await waitlistRef.orderByChild('email').equalTo(email).once('value');
+                    
+                    if (emailSnapshot.exists()) {
+                        showMessage('You are already on the waitlist for this college!', 'info');
+                    } else {
+                        // Add to waitlist
+                        await waitlistRef.push({
+                            name: name,
+                            email: email,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP
+                        });
+                        
+                        showMessage('Successfully added to the waitlist! We will notify you when spots open up.', 'success');
+                        waitlistForm.reset();
+                    }
+                } else {
+                    // College doesn't exist, ask if they want to become Campus CEO
+                    showMessage(`Your college "${college}" is not yet registered. Would you like to become a Campus CEO and add your college?`, 'info');
+                    
+                    // Switch to CEO form and prefill data
+                    ceoTab.click();
+                    document.getElementById('ceo-name').value = name;
+                    document.getElementById('ceo-college').value = college;
+                    document.getElementById('ceo-email').value = email;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('An error occurred. Please try again.', 'error');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="btn-text">Join Waitlist</span>';
+            }
+        });
+
+        // Campus CEO form submission
+        ceoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('ceo-name').value;
+            const college = document.getElementById('ceo-college').value;
+            const email = document.getElementById('ceo-email').value;
+            const phone = document.getElementById('phone').value;
+            
+            // Show loading state
+            const submitBtn = document.getElementById('ceo-submit');
+            const btnText = submitBtn.querySelector('.btn-text');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<div class="loader"></div> Processing...';
+            
+            try {
+                // Check if college already exists
+                const collegesRef = database.ref('colleges');
+                const snapshot = await collegesRef.orderByChild('name').equalTo(college).once('value');
+                
+                if (snapshot.exists()) {
+                    showMessage('This college is already registered!', 'info');
+                } else {
+                    // Add college with CEO as first waitlist entry
+                    const newCollegeRef = collegesRef.push();
+                    await newCollegeRef.set({
+                        name: college,
+                        campusCEO: {
+                            name: name,
+                            email: email,
+                            phone: phone,
+                            timestamp: firebase.database.ServerValue.TIMESTAMP
+                        },
+                        waitlist: {
+                            [newCollegeRef.key]: {
+                                name: name,
+                                email: email,
+                                timestamp: firebase.database.ServerValue.TIMESTAMP
+                            }
+                        }
+                    });
+                    
+                    // Update local college list
+                    allColleges.push(college);
+                    
+                    showMessage('Successfully applied as Campus CEO! Our team will contact you within 48 hours.', 'success');
+                    ceoForm.reset();
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showMessage('An error occurred. Please try again.', 'error');
+            } finally {
+                // Reset button state
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="btn-text">Apply as Campus CEO</span>';
+            }
+        });
+    </script>
+</body>
+</html>

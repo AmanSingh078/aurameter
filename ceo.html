@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurmeter - Campus CEO Program</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Titillium Web', sans-serif;
+            background: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Section */
+        header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffffff;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #d4af37;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: #d4af37;
+        }
+
+        /* Section 1: Founders Message (Photo 4) - WITH PHOTO IN CENTER */
+        .founders-section {
+            background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .founders-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.05), transparent);
+            pointer-events: none;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+        .section-title-gold {
+            color: #d4af37;
+        }
+
+        .section-subtitle {
+            font-size: 18px;
+            color: #cccccc;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .founders-content {
+            background: linear-gradient(135deg, #0a0a0a, #000000);
+            padding: 60px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .founders-title {
+            color: #d4af37;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 600;
+        }
+
+        /* NEW: Founders Layout with Photo in Center */
+        .founders-layout {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .quote-left,
+        .quote-right {
+            background: rgba(212, 175, 55, 0.03);
+            padding: 35px;
+            border-radius: 12px;
+            border-left: 3px solid #d4af37;
+            position: relative;
+        }
+
+        .quote-right {
+            border-left: none;
+            border-right: 3px solid #d4af37;
+        }
+
+        .quote-left::before,
+        .quote-right::before {
+            content: '"';
+            font-size: 60px;
+            color: rgba(212, 175, 55, 0.2);
+            position: absolute;
+            top: 10px;
+            opacity: 0.3;
+        }
+
+        .quote-left::before {
+            left: 20px;
+        }
+
+        .quote-right::before {
+            right: 20px;
+        }
+
+        .quote-text {
+            color: #e0e0e0;
+            font-size: 15px;
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quote-author {
+            color: #d4af37;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .founders-photo {
+            width: 280px;
+            height: 280px;
+            border-radius: 15px;
+            border: 3px solid #d4af37;
+            background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        .program-description {
+            background: rgba(212, 175, 55, 0.05);
+            padding: 40px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .program-description h3 {
+            color: #d4af37;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .program-description p {
+            color: #cccccc;
+            font-size: 16px;
+            line-height: 1.9;
+            text-align: justify;
+        }
+
+        /* Section 2: Leadership & Campus CEO (Photo 2) */
+        .leadership-section {
+            background: #000000;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .leadership-header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding: 0 20px;
+        }
+
+        .leadership-main-title {
+            font-size: 48px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            line-height: 1.4;
+        }
+
+        .leadership-gold-title {
+            font-size: 36px;
+            color: #d4af37;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .leadership-box {
+            background: linear-gradient(135deg, #0a0a0a, #000000);
+            padding: 60px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .leadership-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .leadership-list li {
+            background: rgba(212, 175, 55, 0.05);
+            padding: 30px;
+            margin: 20px 0;
+            border-radius: 10px;
+            border-left: 3px solid #d4af37;
+            transition: all 0.3s;
+        }
+
+        .leadership-list li:hover {
+            background: rgba(212, 175, 55, 0.08);
+            transform: translateX(10px);
+        }
+
+        .leadership-list strong {
+            color: #d4af37;
+            font-size: 22px;
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .leadership-list span {
+            color: #cccccc;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .leadership-description {
+            color: #e0e0e0;
+            font-size: 17px;
+            line-height: 1.8;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .leadership-cta {
+            color: #d4af37;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        /* Section 3: Benefits (Photo 3) - FIXED TO 4 BOXES */
+        .benefits-section {
+            background: linear-gradient(180deg, #000000 0%, #0a0a0a 100%);
+            padding: 120px 0;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #0a0a0a, #000000);
+            padding: 50px 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.08), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 64px;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card h3 {
+            color: #d4af37;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+
+        .benefit-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Section 4: Rewards & Incentives (Photo 1) - IMPROVED UI */
+        .rewards-section {
+            background: #000000;
+            padding: 120px 0;
+        }
+
+        .rewards-main-card {
+            background: linear-gradient(135deg, #0a0a0a, #000000);
+            padding: 60px;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 80px;
+        }
+
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 35px;
+        }
+
+        .reward-card {
+            background: rgba(212, 175, 55, 0.03);
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            transition: all 0.4s;
+        }
+
+        .reward-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.15);
+            background: rgba(212, 175, 55, 0.06);
+        }
+
+        .reward-icon {
+            font-size: 52px;
+            margin-bottom: 20px;
+        }
+
+        .reward-card h3 {
+            color: #d4af37;
+            margin-bottom: 18px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .reward-card p {
+            color: #cccccc;
+            line-height: 1.8;
+            font-size: 15px;
+            margin-bottom: 12px;
+        }
+
+        /* Buttons */
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: #d4af37;
+            padding: 16px 45px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 30px;
+            transition: all 0.3s;
+            border: 2px solid #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #d4af37;
+            color: #000000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .join-button {
+            display: inline-block;
+            background: transparent;
+            color: #d4af37;
+            padding: 14px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 50px;
+            transition: all 0.3s;
+            border: 2px solid #d4af37;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .join-button:hover {
+            background: #d4af37;
+            color: #000000;
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        footer {
+            background: #000000;
+            padding: 50px 0;
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+        }
+
+        .footer-content p {
+            color: #cccccc;
+            margin-bottom: 10px;
+            font-size: 15px;
+        }
+
+        .footer-logo {
+            color: #d4af37;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .social-links a {
+            color: #d4af37;
+            font-size: 22px;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+            filter: brightness(1.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8941f;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .founders-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .founders-photo {
+                width: 220px;
+                height: 220px;
+                margin: 0 auto;
+            }
+
+            .quote-right {
+                border-left: 3px solid #d4af37;
+                border-right: none;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rewards-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 28px;
+            }
+
+            .leadership-main-title {
+                font-size: 28px;
+            }
+
+            .leadership-gold-title {
+                font-size: 24px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .founders-content,
+            .leadership-box,
+            .rewards-main-card {
+                padding: 30px 20px;
+            }
+
+            .quote-left,
+            .quote-right {
+                padding: 25px;
+            }
+
+            .section-header {
+                margin-bottom: 60px;
+            }
+
+            .leadership-header {
+                margin-bottom: 60px;
+            }
+
+            .benefits-grid {
+                margin-top: 60px;
+            }
+
+            .rewards-main-card {
+                margin-top: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">AURME<span>TER</span></div>
+            <ul class="nav-links">
+                <li><a href="#founders">Founders</a></li>
+                <li><a href="#leadership">Campus CEO</a></li>
+                <li><a href="#benefits">Benefits</a></li>
+                <li><a href="#rewards">Rewards</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Section 1: Founders Message with Photo in Center (Photo 4) -->
+    <section id="founders" class="founders-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">India's Biggest Campus CEO Program By <span class="section-title-gold">Aurmeter</span></h2>
+            </div>
+
+            <div class="founders-content animate-in">
+                <h3 class="founders-title">Founder's Message</h3>
+                
+                <!-- NEW: Founders Layout with Photo in Center -->
+                <div class="founders-layout">
+                    <!-- Left Quote -->
+                    <div class="quote-left">
+                        <p class="quote-text">
+                            Innovation is not just a concept; it's the very essence of our existence. From pioneering social media innovations to integrating technology seamlessly into our student's journey, we've always pushed the boundaries. Our aim is clear: to create a platform where every student's potential is unlocked.
+                        </p>
+                        <p class="quote-author">— Prateek Maheshwari</p>
+                    </div>
+
+                    <!-- Center Photo -->
+                    <div class="founders-photo">
+                        👥
+                    </div>
+
+                    <!-- Right Quote -->
+                    <div class="quote-right">
+                        <p class="quote-text">
+                            If you give yourself just 3 years and dedicate them wholly and completely to your dream, and not let self-doubt, or laziness, or the fear of failure come in your way, nothing can stop you from being successful.
+                        </p>
+                        <p class="quote-author">— Alakh Pandey</p>
+                    </div>
+                </div>
+
+                <div class="program-description">
+                    <h3>Dream Big With Aurmeter's Campus CEO Program</h3>
+                    <p>
+                        The Aurmeter Campus CEO Program is an exciting opportunity for passionate and motivated students to become ambassadors of India's fastest-growing social media platform. As a Campus CEO, you'll gain exclusive access to leadership development, networking opportunities, and real-world experience that will set you apart in your career journey. Join thousands of students across India who are already building their personal brand, earning aura points, and climbing the college leaderboard. This is more than just a program – it's a movement that empowers young leaders to make a difference on their campus while developing skills that last a lifetime. Be part of something bigger, lead with purpose, and unlock opportunities that will shape your future!
+                    </p>
+                </div>
+
+                <div style="text-align: center;">
+                    <a href="#apply" class="cta-button">Start Your Journey</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Your Moment to Lead - Campus CEO (Photo 2) -->
+    <section id="leadership" class="leadership-section">
+        <div class="container">
+            <div class="leadership-header">
+                <h2 class="leadership-main-title">YOUR MOMENT TO LEAD IS HERE.</h2>
+                <p class="leadership-gold-title">BECOME AN AURMETER CAMPUS CEO</p>
+            </div>
+
+            <div class="leadership-box animate-in">
+                <ul class="leadership-list">
+                    <li>
+                        <strong>🎯 Lead</strong>
+                        <span>Be the face of Aurmeter on your campus and inspire your peers.</span>
+                    </li>
+                    <li>
+                        <strong>🤝 Connect</strong>
+                        <span>Build bonds with fellow tech lovers and a buzzing community.</span>
+                    </li>
+                    <li>
+                        <strong>🎊 Organise</strong>
+                        <span>Host fun events and activities that get everyone talking.</span>
+                    </li>
+                    <li>
+                        <strong>💡 Create</strong>
+                        <span>Bring your ideas to life with content and campaigns that stand out.</span>
+                    </li>
+                </ul>
+
+                <p class="leadership-description">
+                    This is your chance to represent one of the fastest-growing social media platforms, experience unforgettable opportunities, and unlock rewards that go beyond campus.
+                </p>
+
+                <p class="leadership-cta">
+                    DON'T MISS OUT, APPLY NOW AND LEVEL UP WITH AURMETER!
+                </p>
+
+                <div style="text-align: center;">
+                    <a href="#apply" class="cta-button">Apply Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Benefits - 4 BOXES ONLY (Photo 3) -->
+    <section id="benefits" class="benefits-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Mind-Blowing Benefits For <span class="section-title-gold">Aurmeter's Campus CEOs</span></h2>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card animate-in">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Earn While You Learn</h3>
+                    <p>Get the chance to earn money while you are still in college and build your financial independence!</p>
+                </div>
+
+                <div class="benefit-card animate-in">
+                    <div class="benefit-icon">📈</div>
+                    <h3>Level-Up Your Career</h3>
+                    <p>Aurmeter's Campus CEOs get exclusive internship opportunities and career advancement at Aurmeter!</p>
+                </div>
+
+                <div class="benefit-card animate-in">
+                    <div class="benefit-icon">💼</div>
+                    <h3>Placement Scope</h3>
+                    <p>You can get a pre-placement offer and comprehensive placement training by Aurmeter's expert team!</p>
+                </div>
+
+                <div class="benefit-card animate-in">
+                    <div class="benefit-icon">👥</div>
+                    <h3>Meet Leadership</h3>
+                    <p>Connect with Aurmeter's CXOs and Founders, get career guidance and mentorship from industry leaders!</p>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <a href="#apply" class="join-button">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Superb Rewards & Exciting Incentives (Photo 1) -->
+    <section id="rewards" class="rewards-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title"><span class="section-title-gold">Superb Rewards</span> & Exciting Incentives</h2>
+                <p class="section-subtitle">Aurmeter's Campus CEOs get superb rewards and growth opportunities through this program</p>
+            </div>
+
+            <div class="rewards-main-card animate-in">
+                <div class="rewards-grid">
+                    <div class="reward-card">
+                        <div class="reward-icon">👀</div>
+                        <h3>Did You Know?</h3>
+                        <p>This program allows you to have a Unique Coupon Code! A unique coupon code can get you individual recognition & very cool incentives. Your performance will be tracked by us and you will get performance-based rewards!</p>
+                    </div>
+
+                    <div class="reward-card">
+                        <div class="reward-icon">🎉</div>
+                        <h3>What's More?</h3>
+                        <p>• Your communication and marketing skills will also improve while working as a Campus CEO!</p>
+                        <p>• You can build networking skills through online and offline platforms and cultivate a relationship with Aurmeter!</p>
+                        <p>• Top performers can gain more recognition by having their success stories published in WhatsApp groups!</p>
+                    </div>
+
+                    <div class="reward-card">
+                        <div class="reward-icon">📝</div>
+                        <h3>What Else?</h3>
+                        <p>This certification can be added to your resume which will make it shine like never before. It will increase your value for prospective employers and open new opportunities!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-logo">AURMETER</p>
+                <p>Gain Aura. Lead Your Campus. Become a CEO.</p>
+                <p style="margin-top: 20px;">&copy; 2025 Aurmeter. All Rights Reserved.</p>
+                
+                <div class="social-links">
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="LinkedIn">💼</a>
+                    <a href="#" title="Twitter">🐦</a>
+                    <a href="#" title="Facebook">📘</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -80px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.reward-card, .benefit-card, .leadership-box, .founders-content').forEach(element => {
+            observer.observe(element);
+        });
+
+        // Stagger animation for cards
+        const cards = document.querySelectorAll('.benefit-card, .reward-card, .leadership-list li');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
