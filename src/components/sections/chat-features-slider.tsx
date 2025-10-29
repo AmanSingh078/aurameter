@@ -11,88 +11,41 @@ const ChatFeaturesSlider = () => {
   // Feature data extracted from zzz.html
   const features = [
     {
-      title: "AI Kundli",
-      description: "Our AI algorithms meticulously analyze the positions of celestial bodies at the moment of your birth to generate your Kundli, a detailed astrological chart unique to you.",
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="5" y="5" width="40" height="40" stroke="#FFD700" strokeWidth="1.5" fill="none"/>
-          <line x1="25" y1="5" x2="25" y2="45" stroke="#FFD700" strokeWidth="1.5"/>
-          <line x1="5" y1="25" x2="45" y2="25" stroke="#FFD700" strokeWidth="1.5"/>
-          <line x1="10" y1="10" x2="40" y2="40" stroke="#FFD700" strokeWidth="1.5"/>
-          <line x1="40" y1="10" x2="10" y2="40" stroke="#FFD700" strokeWidth="1.5"/>
-        </svg>
-      )
-    },
-    {
-      title: "True Love Match Making",
-      description: "Discover true love in the stars with Star Astro - your perfect match awaits! Our AI-based app combines Vedic Indian astrology and NASA space intelligence for harmonious cosmic connections.",
-      icon: "💝"
-    },
-    {
-      title: "Horoscope",
-      description: "Your personalized horoscope sheds light on the opportunities and challenges that lie ahead, empowering you to make informed decisions.",
-      icon: "🔮"
-    },
-    {
-      title: "Astro Chat",
-      description: "Look no further than Star Astro - your very own AI astrologer at your fingertips! Our revolutionary AI combines the power of technology with the wisdom of ancient astrology.",
-      icon: "💬"
-    },
-    {
-      title: "Birth Chart Analysis",
-      description: "Unlock the secrets of your birth chart with detailed planetary positions and aspects. Understand how cosmic energies influence your personality, strengths, and life path.",
-      icon: "⭐"
-    },
-    {
-      title: "Tarot Reading",
-      description: "Experience AI-powered tarot readings that provide guidance on love, career, and personal growth. Get insights from ancient wisdom combined with modern technology.",
-      icon: "🃏"
-    },
-    {
-      title: "Palmistry Scan",
-      description: "Upload your palm photo and receive instant AI-based palmistry analysis. Discover what the lines on your hands reveal about your destiny and character traits.",
-      icon: "🤚"
-    },
-    {
-      title: "Numerology Insights",
-      description: "Unlock the mystical power of numbers in your life. Our AI analyzes your birth date and name to reveal hidden patterns and life purpose.",
-      icon: "🔢"
-    },
-    {
-      title: "Gemstone Recommendations",
-      description: "Discover which gemstones align with your astrological chart to enhance positive energies and ward off negative influences in your life.",
-      icon: "💎"
-    },
-    {
-      title: "Feng Shui Analysis",
-      description: "Optimize your living space with personalized Feng Shui recommendations. Our AI analyzes your home layout to maximize positive energy flow.",
-      icon: "🏠"
-    },
-    {
-      title: "Compatibility Checker",
-      description: "See how well you connect with friends, family, or colleagues. Our compatibility analysis helps you understand relationship dynamics.",
-      icon: "👥"
-    },
-    {
-      title: "Career Guidance",
-      description: "Align your career path with cosmic energies. Get personalized advice on the best timing for job changes, promotions, and business ventures.",
-      icon: "💼"
-    },
-    {
-      title: "Health Forecast",
-      description: "Stay ahead of potential health challenges with our predictive health astrology. Learn which body systems need extra care during planetary transits.",
-      icon: "❤️"
-    },
-    {
-      title: "Financial Predictions",
-      description: "Navigate your financial journey with cosmic insights. Discover the best times for investments, major purchases, and wealth-building opportunities.",
-      icon: "💰"
-    },
-    {
-      title: "Daily Moon Guidance",
-      description: "Harness the power of lunar cycles with personalized daily guidance. Learn how each moon phase affects your emotions and decision-making.",
-      icon: "🌙"
-    }
+  title: "Compliments & Interaction Personalization",
+  description: "Your emotional AI that reads your vibe, compliments your aura, and interacts like a real companion."
+},
+{
+  title: "Story-Only Social Media",
+  description: "Your Space, Your Energy — a pure storytelling zone with no filters, no followers, just real vibes and authentic expression."
+},
+{
+  title: "Mood Tracking on Chat",
+  description: "Feel seen, every time — AI that senses your mood in conversations and reflects your emotional journey."
+},
+{
+  title: "Personalized Aura Themes",
+  description: "Your Mood, Your Design — app themes that evolve with your aura, turning your emotional growth into visual art."
+},
+{
+  title: "College Leaderboard & Vibers",
+  description: "Compete, connect, and shine. Track your aura score with peers and vibe with top creators across campuses."
+},
+{
+  title: "Vibe Matching (No Follows)",
+  description: "A new way to connect — match through emotions, authenticity, and real vibes instead of followers."
+},
+{
+  title: "Aura Castle",
+  description: "Play, engage, and grow in your personal aura world — do activities, play mini-games, and build meaningful bonds."
+},
+{
+  title: "Rewards for Every Action",
+  description: "Earn while you feel — every authentic action earns AuraPoints to unlock rewards, themes, and exclusive merch."
+},
+{
+  title: "Secured Chatting",
+  description: "Private yet personal — emotion-aware encrypted chats that keep your connections safe and soulful."
+}
   ];
 
   const getCardsPerView = () => {
@@ -207,6 +160,78 @@ const ChatFeaturesSlider = () => {
     }
   }, [isMounted]);
 
+  // Handle card hover effects and scrolling
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        (card as HTMLElement).style.setProperty('--mouse-x', `${x}px`);
+        (card as HTMLElement).style.setProperty('--mouse-y', `${y}px`);
+      });
+    };
+
+    // Handle mouse wheel scrolling
+    const handleWheel = (e: Event) => {
+      if (e instanceof WheelEvent) {
+        e.preventDefault();
+        if (e.deltaY > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    };
+
+    // Handle touch scrolling
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const handleTouchStart = (e: Event) => {
+      if (e instanceof TouchEvent) {
+        touchStartX = e.touches[0].clientX;
+      }
+    };
+
+    const handleTouchMove = (e: Event) => {
+      if (e instanceof TouchEvent) {
+        touchEndX = e.touches[0].clientX;
+      }
+    };
+
+    const handleTouchEnd = () => {
+      const touchDiff = touchStartX - touchEndX;
+      if (Math.abs(touchDiff) > 50) { // minimum swipe distance
+        if (touchDiff > 0) {
+          nextSlide();
+        } else {
+          prevSlide();
+        }
+      }
+    };
+
+    const sliderElement = document.querySelector('.slider-wrapper');
+    if (sliderElement) {
+      sliderElement.addEventListener('wheel', handleWheel as EventListener, { passive: false });
+      sliderElement.addEventListener('touchstart', handleTouchStart as EventListener);
+      sliderElement.addEventListener('touchmove', handleTouchMove as EventListener);
+      sliderElement.addEventListener('touchend', handleTouchEnd);
+    }
+    document.addEventListener('mousemove', handleMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      if (sliderElement) {
+        sliderElement.removeEventListener('wheel', handleWheel as EventListener);
+        sliderElement.removeEventListener('touchstart', handleTouchStart as EventListener);
+        sliderElement.removeEventListener('touchmove', handleTouchMove as EventListener);
+        sliderElement.removeEventListener('touchend', handleTouchEnd);
+      }
+    };
+  }, [nextSlide, prevSlide]);
+
   return (
     <section className="relative py-16 sm:py-20 md:py-28 overflow-hidden bg-transparent">
       {/* Enhanced background with subtle animation */}
@@ -221,36 +246,36 @@ const ChatFeaturesSlider = () => {
       <div className="container relative z-10 mx-auto px-4">
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4 sm:mb-6 text-white title">
-            Chat Smarter, Not Harder<br />
+            The Internet needed a reset.<br />
             <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl italic" style={{
               background: 'linear-gradient(180deg, #ffffff 0%, #d4af37 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
-            }}>with Star Astro</span>
+            }}>And that's why we built Aurameter</span>
           </h2>
           <p className="text-base sm:text-lg md:text-xl text-gray-300 max-w-3xl mx-auto font-light subtitle px-4">
-            Discover the cosmic powers that shape your destiny
+            {/* Discover the cosmic powers that shape your destiny */}
           </p>
           <div className="mt-6 sm:mt-8 flex justify-center">
             <div className="w-20 h-px bg-gradient-to-r from-transparent via-yellow-500 to-transparent"></div>
           </div>
         </div>
 
-        <div className="slider-container max-w-6xl mx-auto px-4 relative">
-          <div className="slider-wrapper overflow-hidden relative rounded-none border border-white/10">
+        <div className="slider-container max-w-7xl mx-auto px-4 relative">
+          <div className="slider-wrapper overflow-hidden relative p-4 cursor-grab active:cursor-grabbing">
             {/* Navigation Arrows with enhanced styling */}
             <button 
-              className="nav-arrow left absolute top-1/2 -translate-y-1/2 bg-black border border-white/20 text-yellow-500 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:border-yellow-500/70 hover:text-yellow-300 hover:shadow-lg hover:shadow-yellow-500/30 text-xl sm:text-2xl font-light rounded-full transform hover:scale-110"
+              className="nav-arrow left absolute top-1/2 -translate-y-1/2 bg-black/90 text-white/90 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:text-yellow-300 text-xl sm:text-2xl font-light rounded-lg"
               onClick={prevSlide}
-              style={{ left: '-20px' }}
+              style={{ left: '1rem' }}
               aria-label="Previous slide"
             >
               ‹
             </button>
             <button 
-              className="nav-arrow right absolute top-1/2 -translate-y-1/2 bg-black border border-white/20 text-yellow-500 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:border-yellow-500/70 hover:text-yellow-300 hover:shadow-lg hover:shadow-yellow-500/30 text-xl sm:text-2xl font-light rounded-full transform hover:scale-110"
+              className="nav-arrow right absolute top-1/2 -translate-y-1/2 bg-black/90 text-white/90 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:text-yellow-300 text-xl sm:text-2xl font-light rounded-lg"
               onClick={nextSlide}
-              style={{ right: '-20px' }}
+              style={{ right: '1rem' }}
               aria-label="Next slide"
             >
               ›
@@ -259,57 +284,45 @@ const ChatFeaturesSlider = () => {
             {/* Slider */}
             <div 
               ref={sliderRef}
-              className="slider flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] gap-4 sm:gap-6"
+              className="slider flex transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] gap-6 px-4 py-2"
               style={{ transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)' }}
             >
               {[...features, ...features].map((feature, index) => (
                 <div 
                   key={index}
-                  className="card group min-w-full sm:min-w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)] bg-gradient-to-br from-gray-900 via-black to-gray-900 border border-white/10 p-5 sm:p-6 relative cursor-pointer flex flex-col h-[320px] sm:h-[400px] transition-all duration-500 hover:shadow-2xl hover:shadow-yellow-500/30 transform-gpu overflow-hidden"
+                  className="card group min-w-full sm:min-w-[calc(50%-16px)] lg:min-w-[calc(33.333%-16px)] bg-linear-to-b from-black via-black/95 to-black p-6 relative cursor-pointer flex flex-col h-64 sm:h-72 transition-all duration-500 rounded-xl overflow-hidden"
                 >
-                  {/* Animated background elements */}
-                  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute -top-1/2 -left-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-yellow-500/5 via-transparent to-transparent transform rotate-12 scale-150 group-hover:scale-125 transition-all duration-1000"></div>
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500 rounded-full blur-3xl opacity-10 group-hover:opacity-20 transition-all duration-700"></div>
-                  </div>
+                  {/* Premium gradient border effect */}
+                  <div className="absolute inset-0 bg-linear-to-r from-transparent via-yellow-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-px bg-black rounded-xl z-1"></div>
                   
-                  {/* Enhanced gold accent border with animation */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 pointer-events-none">
-                    <div className="absolute inset-0 border border-yellow-500/40 rounded-lg"></div>
-                  </div>
-                  
-                  <div className="card-content flex flex-col items-center justify-center flex-1 relative z-10 text-center">
-                    <div className="flex justify-center mb-4">
-                      <div className="card-icon-wrapper w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center bg-gradient-to-br from-gray-800 to-black border border-white/20 transition-all duration-500 group-hover:border-yellow-500/60 group-hover:shadow-2xl group-hover:shadow-yellow-500/40 rounded-xl transform group-hover:scale-110 relative overflow-hidden">
-                        {/* Glowing background for icons */}
-                        <div className="absolute inset-0 bg-yellow-500/5 group-hover:bg-yellow-500/10 rounded-xl transition-all duration-500"></div>
-                        <div className="card-icon text-xl sm:text-2xl opacity-95 filter drop-shadow-lg relative z-10">
-                          {typeof feature.icon === 'string' ? feature.icon : feature.icon}
-                        </div>
-                      </div>
-                    </div>
+                  <div className="card-content flex flex-col justify-center flex-1 relative z-10">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-yellow-500/5 rounded-full blur-xl transform translate-x-16 -translate-y-16 group-hover:translate-x-8 transition-transform duration-700"></div>
                     
-                    <h3 className="text-base sm:text-lg font-bold mb-3 leading-tight text-white title group-hover:text-yellow-300 transition-colors duration-300 transform group-hover:translate-y-[-2px]">
+                    <h3 className="text-lg sm:text-xl font-bold mb-4 leading-tight text-white title group-hover:text-yellow-300 transition-all duration-300">
                       {feature.title}
                     </h3>
-                    <p className="text-xs sm:text-sm leading-relaxed text-gray-300 px-2 font-light subtitle transform group-hover:translate-y-[-1px] transition-transform duration-300">
+                    <p className="text-sm sm:text-base leading-relaxed text-gray-300/90 font-light subtitle">
                       {feature.description}
                     </p>
                   </div>
+                  
+                  {/* Premium border effect */}
+                  <div className="absolute inset-0 border border-yellow-500/20 rounded-xl group-hover:border-yellow-500/40 transition-colors duration-500"></div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Enhanced Dots Navigation */}
-          <div className="dots flex justify-center items-center gap-2 mt-8 sm:mt-10 flex-wrap">
+          {/* Simplified Dots Navigation */}
+          <div className="dots flex justify-center items-center gap-3 mt-8">
             {features.map((_, index) => (
               <button
                 key={index}
-                className={`dot w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full cursor-pointer transition-all duration-500 transform hover:scale-125 ${
+                className={`dot w-2 h-2 rounded-full cursor-pointer transition-all duration-300 ${
                   index === currentSlide 
-                    ? 'bg-yellow-500 w-6 sm:w-8 rounded-full shadow-lg shadow-yellow-500/50 transform scale-125' 
-                    : 'bg-gray-700 hover:bg-gray-600'
+                    ? 'bg-yellow-400' 
+                    : 'bg-gray-600 hover:bg-gray-500'
                 }`}
                 onClick={() => goToSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
@@ -320,61 +333,67 @@ const ChatFeaturesSlider = () => {
       </div>
 
       <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
+        .card {
+          transform: perspective(1000px) rotateX(0deg);
+          background: linear-gradient(to bottom, rgba(0,0,0,0.95), rgba(0,0,0,0.98));
         }
         
         .card::before {
           content: '';
           position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          padding: 1px;
-          background: linear-gradient(135deg, transparent, #FFD700, transparent);
-          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-          -webkit-mask-composite: xor;
-          mask-composite: exclude;
-          pointer-events: none;
-          opacity: 0.3;
-          transition: all 0.5s ease;
-          border-radius: 0.5rem;
+          inset: 0;
+          background: radial-gradient(
+            800px circle at var(--mouse-x) var(--mouse-y),
+            rgba(234, 179, 8, 0.06),
+            transparent 40%
+          );
+          border-radius: 12px;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity 0.5s;
         }
         
         .card:hover::before {
-          opacity: 0.7;
-          transform: scale(1.02);
+          opacity: 1;
+        }
+        
+        .card::after {
+          content: '';
+          position: absolute;
+          inset: 0;
+          background: radial-gradient(
+            600px circle at var(--mouse-x) var(--mouse-y),
+            rgba(234, 179, 8, 0.4),
+            transparent 40%
+          );
+          border-radius: 12px;
+          z-index: 1;
+          opacity: 0;
+          transition: opacity 0.5s;
+          mix-blend-mode: overlay;
+        }
+        
+        .card:hover::after {
+          opacity: 0.1;
+        }
+        
+        .card:hover {
+          transform: perspective(1000px) rotateX(2deg);
         }
         
         /* Mobile responsive adjustments */
         @media (max-width: 767px) {
           .slider-wrapper {
-            padding: 0 20px;
+            padding: 1rem 0.5rem;
           }
           
           .nav-arrow {
             display: none;
           }
-          
-          .card {
-            height: 320px;
-          }
-        }
-        
-        @media (min-width: 768px) and (max-width: 1023px) {
-          .card {
-            height: 400px;
-          }
-        }
-        
-        @media (min-width: 1024px) {
-          .card {
-            height: 400px;
-          }
         }
       `}</style>
+      
+
     </section>
   );
 };
