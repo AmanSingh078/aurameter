@@ -79,27 +79,7 @@ const NavigationHeader = () => {
 
     return (
         <header className="relative w-full text-white bg-black sticky top-0 z-50">
-            {/* Scrolling Marquee Banner */}
-            <div className="w-full overflow-hidden bg-black text-white">
-                <Link href="/?archive=true" aria-label="View Synchronized Archive">
-                    <div className="flex whitespace-nowrap py-2 text-overline">
-                        <div className="flex-shrink-0 animate-[marquee_80s_linear_infinite]">
-                            {marqueeSpans.map((_, index) => (
-                                <span key={`marquee-part-1-${index}`} className="px-4 animate-pulse-slow">
-                                    Aura <span className="font-normal">Aura</span>
-                                </span>
-                            ))}
-                        </div>
-                        <div aria-hidden="true" className="flex-shrink-0 animate-[marquee_80s_linear_infinite]">
-                            {marqueeSpans.map((_, index) => (
-                                <span key={`marquee-part-2-${index}`} className="px-4 animate-pulse-slow">
-                                    Aura <span className="font-normal">Aura</span>
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                </Link>
-            </div>
+
 
             {/* Navigation Bar */}
             <nav className="w-full bg-black flex items-center justify-between px-4 sm:px-5 md:px-10 lg:px-20 py-3 animate-fade-in">

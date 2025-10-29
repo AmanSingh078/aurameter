@@ -3,7 +3,8 @@
 import NavigationHeader from '@/components/sections/navigation-header';
 import HeroSection from '@/components/sections/hero-section';
 import AboutSection from '@/components/sections/about-section';
-import PortfolioGrid from '@/components/sections/portfolio-grid';
+import ChatFeaturesSlider from '@/components/sections/chat-features-slider';
+import PremiumCarousel from '@/components/sections/premium-carousel';
 import AwardsSection from '@/components/sections/awards-section';
 import TeamSection from '@/components/sections/team-section';
 import Footer from '@/components/sections/footer';
@@ -73,8 +74,11 @@ export default function Home() {
         </div>
         <div ref={portfolioRef} id="work" className="py-8 md:py-12">
           <ScrollFromGround delay={200} animationType="pop">
-            <PortfolioGrid />
+            <ChatFeaturesSlider />
           </ScrollFromGround>
+          <div className="py-8 md:py-12">
+            <PremiumCarousel />
+          </div>
         </div>
         <div ref={awardsRef} id="recognition" className="py-8 md:py-12">
           <ScrollFromGround delay={300} animationType="slide">

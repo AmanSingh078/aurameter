@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useScrollAnimation } from "@/lib/hooks/use-scroll-animation";
 import { useIsMobile } from "@/hooks/use-mobile";
+import Link from "next/link";
 
 const ContactSection = () => {
   const { scrollY, velocity, scrollOpacity, scrollBlur, hueRotation } =
@@ -111,7 +112,7 @@ const ContactSection = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mb-6">
-              <a
+              <Link
                 href="/waitlist"
                 className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-full font-bold text-[14px] md:text-[16px] transition-all duration-300 hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105"
                 style={
@@ -123,7 +124,7 @@ const ContactSection = () => {
                 }
               >
                 <span className="relative z-10">→ Join the Waitlist</span>
-              </a>
+              </Link>
 
               <a
                 href="mailto:hello@aurameter.app"

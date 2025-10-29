@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Smarter, Not Harder with Star Astro</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            margin-bottom: 90px;
+            line-height: 1.2;
+            color: #ffffff;
+            letter-spacing: -2px;
+        }
+
+        .slider-container {
+            position: relative;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 30px 0;
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 32px;
+        }
+
+        .card {
+            min-width: calc(33.333% - 21.33px);
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            padding: 56px 44px 52px 44px;
+            position: relative;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            min-height: 480px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 4px;
+        }
+
+        .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 4px;
+    padding: 1px;
+    background: linear-gradient(90deg, transparent, #B8965F, transparent),
+                linear-gradient(0deg, transparent, #B8965F, transparent),
+                linear-gradient(90deg, transparent, #B8965F, transparent),
+                linear-gradient(0deg, transparent, #B8965F, transparent);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+
+        .card:hover {
+            border-color: #1a1a1a;
+        }
+
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: -0.3px;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .card p {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            color: #707070;
+            margin-bottom: 56px;
+            flex: 1;
+            font-weight: 400;
+        }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            padding-top: 28px;
+            border-top: 1px solid #141414;
+        }
+
+        .card-icon-wrapper {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f0f0f;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon-wrapper {
+            border-color: #2a2a2a;
+        }
+
+        .card-icon {
+            font-size: 1.25rem;
+            opacity: 0.85;
+            filter: grayscale(0.2);
+        }
+
+        .explore-btn {
+            background: transparent;
+            border: none;
+            color: #B8965F;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 1.8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            padding: 0;
+        }
+
+        .explore-btn:hover {
+            gap: 12px;
+            color: #D4AF37;
+        }
+
+        .arrow {
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        .dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 80px;
+            flex-wrap: wrap;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #1a1a1a;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-sizing: border-box;
+        }
+
+        .dot.active {
+            background: transparent;
+            border-color: #B8965F;
+            width: 12px;
+            height: 12px;
+        }
+
+        .dot:hover:not(.active) {
+            background: #2a2a2a;
+        }
+
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            color: #B8965F;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        .nav-arrow:hover {
+            border-color: #2a2a2a;
+            color: #D4AF37;
+        }
+
+        .nav-arrow.left {
+            left: -80px;
+        }
+
+        .nav-arrow.right {
+            right: -80px;
+        }
+
+        @media (max-width: 1400px) {
+            .nav-arrow.left {
+                left: -30px;
+            }
+
+            .nav-arrow.right {
+                right: -30px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .card {
+                min-width: calc(50% - 16px);
+            }
+
+            h1 {
+                font-size: 2.8rem;
+                margin-bottom: 70px;
+            }
+
+            .nav-arrow {
+                width: 44px;
+                height: 44px;
+                font-size: 1.3rem;
+            }
+
+            .nav-arrow.left {
+                left: -10px;
+            }
+
+            .nav-arrow.right {
+                right: -10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 70px 20px;
+            }
+
+            .card {
+                min-width: 100%;
+                min-height: 440px;
+                padding: 48px 40px;
+            }
+
+            h1 {
+                font-size: 2.3rem;
+                margin-bottom: 60px;
+            }
+
+            .card h3 {
+                font-size: 1.35rem;
+            }
+
+            .card p {
+                font-size: 0.9rem;
+                margin-bottom: 44px;
+            }
+
+            .card-icon-wrapper {
+                width: 44px;
+                height: 44px;
+            }
+
+            .explore-btn {
+                font-size: 0.65rem;
+            }
+
+            .nav-arrow {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .nav-arrow.left {
+                left: 8px;
+            }
+
+            .nav-arrow.right {
+                right: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 50px 18px;
+            }
+
+            h1 {
+                font-size: 1.85rem;
+                margin-bottom: 50px;
+                letter-spacing: -1.2px;
+            }
+
+            .card {
+                padding: 40px 32px;
+                min-height: 420px;
+            }
+
+            .card h3 {
+                font-size: 1.25rem;
+                margin-bottom: 16px;
+            }
+
+            .card p {
+                font-size: 0.875rem;
+                margin-bottom: 40px;
+            }
+
+            .slider {
+                gap: 24px;
+            }
+
+            .dot {
+                width: 7px;
+                height: 7px;
+            }
+
+            .dot.active {
+                width: 11px;
+                height: 11px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Chat Smarter, Not Harder<br>with Star Astro</h1>
+
+        <div class="slider-container">
+            <div class="slider-wrapper">
+                <div class="nav-arrow left" id="prevBtn">‹</div>
+                <div class="nav-arrow right" id="nextBtn">›</div>
+                
+                <div class="slider" id="slider">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>AI Kundli</h3>
+                            <p>Our AI algorithms meticulously analyze the positions of celestial bodies at the moment of your birth to generate your Kundli, a detailed astrological chart unique to you.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">
+                                        <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect x="5" y="5" width="40" height="40" stroke="#B8965F" stroke-width="1.5" fill="none"/>
+                                            <line x1="25" y1="5" x2="25" y2="45" stroke="#B8965F" stroke-width="1.5"/>
+                                            <line x1="5" y1="25" x2="45" y2="25" stroke="#B8965F" stroke-width="1.5"/>
+                                            <line x1="10" y1="10" x2="40" y2="40" stroke="#B8965F" stroke-width="1.5"/>
+                                            <line x1="40" y1="10" x2="10" y2="40" stroke="#B8965F" stroke-width="1.5"/>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>True Love Match Making</h3>
+                            <p>Discover true love in the stars with Star Astro - your perfect match awaits! Our AI-based app combines Vedic Indian astrology and NASA space intelligence for harmonious cosmic connections.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">💝</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Horoscope</h3>
+                            <p>Your personalized horoscope sheds light on the opportunities and challenges that lie ahead, empowering you to make informed decisions.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🔮</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Astro Chat</h3>
+                            <p>Look no further than Star Astro - your very own AI astrologer at your fingertips! Our revolutionary AI combines the power of technology with the wisdom of ancient astrology.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">💬</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Birth Chart Analysis</h3>
+                            <p>Unlock the secrets of your birth chart with detailed planetary positions and aspects. Understand how cosmic energies influence your personality, strengths, and life path.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">⭐</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Tarot Reading</h3>
+                            <p>Experience AI-powered tarot readings that provide guidance on love, career, and personal growth. Get insights from ancient wisdom combined with modern technology.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🃏</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Palmistry Scan</h3>
+                            <p>Upload your palm photo and receive instant AI-based palmistry analysis. Discover what the lines on your hands reveal about your destiny and character traits.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🤚</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Zodiac Compatibility</h3>
+                            <p>Find out how compatible you are with friends, family, and romantic partners. Our detailed compatibility reports analyze sun signs, moon signs, and rising signs.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">♈</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Numerology Report</h3>
+                            <p>Discover the hidden meanings behind numbers in your life. Calculate your life path number, destiny number, and soul urge number for deeper self-awareness.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🔢</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Dream Interpreter</h3>
+                            <p>Uncover the symbolic meanings of your dreams with our AI dream analysis. Get personalized interpretations based on astrology and psychological insights.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🌙</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Vedic Astrology</h3>
+                            <p>Explore ancient Vedic astrology traditions with precise calculations. Get detailed insights into doshas, yogas, and dasha periods affecting your life journey.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🕉️</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Career Guidance</h3>
+                            <p>Navigate your professional path with astrological career guidance. Discover your ideal career paths based on planetary influences and vocational aptitudes.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">💼</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Transit Forecast</h3>
+                            <p>Stay ahead with planetary transit forecasts. Know when favorable times arrive for important decisions, relationships, and financial matters.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🌍</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Moon Phase Calendar</h3>
+                            <p>Track lunar cycles and their influence on your emotions and energy. Plan activities according to moon phases for optimal results and well-being.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🌗</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Gemstone Recommendation</h3>
+                            <p>Discover which gemstones align with your birth chart. Get personalized recommendations for stones that can enhance positive energies in your life.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">💎</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Marriage Compatibility</h3>
+                            <p>Evaluate marriage compatibility with detailed Vedic matching. Analyze guna milan, mangal dosha, and other factors for lasting marital harmony.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">💍</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Aura Reading</h3>
+                            <p>Discover the colors and energies surrounding you through AI-powered aura analysis. Understand your spiritual state and emotional well-being through aura insights.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">✨</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Chakra Balancing</h3>
+                            <p>Identify energy blockages in your seven chakras. Receive personalized guidance for balancing and healing each chakra through meditation and practices.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🧘</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Past Life Reading</h3>
+                            <p>Explore karmic patterns from past lives through your birth chart. Understand soul lessons and recurring themes that shape your current life journey.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">♻️</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-content">
+                            <h3>Crystal Healing Guide</h3>
+                            <p>Learn which crystals resonate with your astrological profile. Get guidance on using healing crystals for meditation, protection, and energy enhancement.</p>
+                            <div class="card-footer">
+                                <div class="card-icon-wrapper">
+                                    <div class="card-icon">🔮</div>
+                                </div>
+                                <button class="explore-btn">
+                                    Explore More
+                                    <span class="arrow">→</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="dots" id="dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+            <span class="dot" data-slide="4"></span>
+            <span class="dot" data-slide="5"></span>
+            <span class="dot" data-slide="6"></span>
+            <span class="dot" data-slide="7"></span>
+            <span class="dot" data-slide="8"></span>
+            <span class="dot" data-slide="9"></span>
+            <span class="dot" data-slide="10"></span>
+            <span class="dot" data-slide="11"></span>
+            <span class="dot" data-slide="12"></span>
+            <span class="dot" data-slide="13"></span>
+            <span class="dot" data-slide="14"></span>
+            <span class="dot" data-slide="15"></span>
+            <span class="dot" data-slide="16"></span>
+            <span class="dot" data-slide="17"></span>
+            <span class="dot" data-slide="18"></span>
+            <span class="dot" data-slide="19"></span>
+        </div>
+    </div>
+
+    <script>
+        const slider = document.getElementById('slider');
+        const dots = document.querySelectorAll('.dot');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const totalCards = 20;
+        let currentSlide = 0;
+
+        function getCardsPerView() {
+            if (window.innerWidth > 1024) return 3;
+            if (window.innerWidth > 768) return 2;
+            return 1;
+        }
+
+        function updateSlider() {
+            const cardsPerView = getCardsPerView();
+            const cardWidth = slider.children[0].offsetWidth;
+            const gap = window.innerWidth <= 480 ? 24 : 32;
+            const offset = -currentSlide * (cardWidth + gap);
+            slider.style.transform = `translateX(${offset}px)`;
+
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+
+            const maxSlide = totalCards - cardsPerView;
+            prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+            prevBtn.style.pointerEvents = currentSlide === 0 ? 'none' : 'auto';
+            nextBtn.style.opacity = currentSlide >= maxSlide ? '0.3' : '1';
+            nextBtn.style.pointerEvents = currentSlide >= maxSlide ? 'none' : 'auto';
+        }
+
+        function nextSlide() {
+            const cardsPerView = getCardsPerView();
+            const maxSlide = totalCards - cardsPerView;
+            if (currentSlide < maxSlide) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlider();
+            });
+        });
+
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        let autoSlideInterval = setInterval(() => {
+            const cardsPerView = getCardsPerView();
+            const maxSlide = totalCards - cardsPerView;
+            if (currentSlide >= maxSlide) {
+                currentSlide = 0;
+            } else {
+                currentSlide++;
+            }
+            updateSlider();
+        }, 3000);
+
+        slider.addEventListener('mouseenter', () => {
+            clearInterval(autoSlideInterval);
+        });
+
+        slider.addEventListener('mouseleave', () => {
+            autoSlideInterval = setInterval(() => {
+                const cardsPerView = getCardsPerView();
+                const maxSlide = totalCards - cardsPerView;
+                if (currentSlide >= maxSlide) {
+                    currentSlide = 0;
+                } else {
+                    currentSlide++;
+                }
+                updateSlider();
+            }, 5000);
+        });
+
+        window.addEventListener('resize', () => {
+            currentSlide = 0;
+            updateSlider();
+        });
+
+        updateSlider();
+    </script>
+</body>
+</html>
