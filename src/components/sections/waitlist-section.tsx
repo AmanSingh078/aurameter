@@ -596,7 +596,7 @@ export default function WaitlistSection() {
               AuraMeter is an AI-powered emotional social app that measures<br />and enhances your aura — your emotional energy and positivity.
             </p>
             <p className="mt-4 text-sm text-white/40 leading-relaxed">
-              Designed by <a href="#" className="text-yellow-500/80 underline transition-colors hover:text-yellow-500">ersadwork</a> to give you back your time.
+              Designed by <a href="#" className="text-yellow-500/80 underline transition-colors hover:text-yellow-500">Aurameter</a> to give you back your time.
             </p>
             
             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-white/30">
