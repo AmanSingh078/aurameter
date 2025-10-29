@@ -310,41 +310,106 @@ export default function WaitlistSection() {
   }, [searchParams]);
   
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* Animated Background Canvas */}
-      <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(212,175,55,0.05)_0%,transparent_50%),radial-gradient(circle_at_80%_20%,rgba(212,175,55,0.03)_0%,transparent),#000000]"></div>
-      </div>
-
-      {/* Geometric Lines Overlay */}
-      <div className="fixed inset-0 z-1 pointer-events-none opacity-20">
-        <div className="absolute left-0 w-[400px] h-[1px] bg-[linear-gradient(90deg,transparent,rgba(212,175,55,0.4),transparent)] top-1/2 animate-move-line"></div>
-        <div className="absolute top-0 w-[1px] h-[300px] bg-[linear-gradient(180deg,transparent,rgba(212,175,55,0.4),transparent)] left-[15%] animate-move-vertical"></div>
+    <div className="min-h-screen text-white relative overflow-hidden">
+      {/* Premium Background Pattern - Simplified */}
+      <div className="fixed inset-0 z-[-1]" aria-hidden="true">
+        <div className="absolute inset-0 bg-transparent"></div>
       </div>
 
       {/* Content Wrapper */}
       <div className="relative z-2">
         {/* Top Bar */}
         <div className="fixed top-4 right-8 flex gap-4 z-50">
-          <button className="px-4 py-2 bg-black/30 border border-yellow-500/20 rounded-lg text-white text-sm cursor-pointer backdrop-blur-lg transition-all duration-300 flex items-center gap-2 hover:bg-yellow-500/10 hover:border-yellow-500/40">
-            Updates
-          </button>
-          <button className="px-4 py-2 bg-black/30 border border-yellow-500/20 rounded-lg text-white text-sm cursor-pointer backdrop-blur-lg transition-all duration-300 flex items-center gap-2 hover:bg-yellow-500/10 hover:border-yellow-500/40">
-            <div className="w-4 h-4 bg-yellow-500/30 rounded-sm"></div>
-          </button>
+          <div 
+            className="w-11 h-11 rounded-lg flex items-center justify-center backdrop-blur-sm transition-all duration-300 cursor-pointer"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="w-5 h-5" style={{ fill: 'rgba(255, 255, 255, 0.7)' }}>
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+          </div>
+          <div 
+            className="w-11 h-11 rounded-lg flex items-center justify-center backdrop-blur-sm transition-all duration-300 cursor-pointer"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(255, 255, 255, 0.1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 175, 55, 0.08)';
+              e.currentTarget.style.borderColor = 'rgba(212, 175, 55, 0.3)';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 10px 25px rgba(212, 175, 55, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+              e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    className="w-5 h-5"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ color: 'rgba(255, 255, 255, 0.8)' }}
+  >
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+</div>
         </div>
 
         {/* Hero Section */}
-        <section className="min-h-screen flex flex-col items-center justify-center px-4 py-16 text-center">
+        <section className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden py-10 px-4">
 
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold leading-tight mb-8 text-white/50">
-            Join the waitlist for the<br />
-            <span className="bg-[linear-gradient(135deg,#d4af37_0%,#f4e5b8_50%,#d4af37_100%)] bg-clip-text text-transparent font-bold">
-              AuraMeter Revolution!
-            </span>
+          <h1 
+            className="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 transition-all duration-1000"
+            style={{
+              fontFamily: 'var(--font-title)',
+              background: 'linear-gradient(180deg, #ffffff 0%, #d4af37 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            Seize Your Moment to Lead<br />
+            As Campus CEO!
           </h1>
 
           {/* Know More Button */}
+          <p 
+            className="text-center text-base md:text-lg max-w-2xl mb-12 transition-all duration-1000 delay-200"
+            style={{
+              color: 'rgba(255, 255, 255, 0.6)',
+              lineHeight: '1.7',
+              fontWeight: 300,
+              fontSize: '1.25rem'
+            }}
+          >
+            AuraMeter is an AI-powered emotional social app that measures and enhances your aura — your emotional energy and positivity.
+          </p>
+
           <div className="mb-8">
             <a 
               href="/campus-ceo" 
@@ -502,7 +567,7 @@ export default function WaitlistSection() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-green-500/10 border border-green-500/30 rounded-xl text-white text-base font-medium backdrop-blur-lg transition-all duration-300 hover:bg-green-500/20 hover:border-green-500/50 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(72,187,120,0.2)] disabled:opacity-50"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-4 bg-yellow-500/8 border border-yellow-500/30 rounded-xl text-white text-base font-medium backdrop-blur-lg transition-all duration-300 hover:bg-yellow-500/12 hover:border-yellow-500/50 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(212,175,55,0.2)] disabled:opacity-50"
                 >
                   {loading ? (
                     <>
@@ -617,22 +682,42 @@ export default function WaitlistSection() {
 
       {/* Animation styles */}
       <style jsx>{`
-        @keyframes move-line {
-          0%, 100% { transform: translateX(0); opacity: 0.2; }
-          50% { transform: translateX(100px); opacity: 0.4; }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-15px) rotate(2deg); }
         }
         
-        @keyframes move-vertical {
-          0%, 100% { transform: translateY(0); opacity: 0.2; }
-          50% { transform: translateY(100px); opacity: 0.4; }
+        @keyframes shimmer {
+          0%, 100% { opacity: 0.3; transform: rotate(0deg); }
+          50% { opacity: 0.6; transform: rotate(180deg); }
         }
         
-        .animate-move-line {
-          animation: move-line 8s ease-in-out infinite;
+        @keyframes pulse-gold {
+          0%, 100% { opacity: 1; transform: scale(1); }
+          50% { opacity: 0.6; transform: scale(1.2); }
         }
         
-        .animate-move-vertical {
-          animation: move-vertical 10s ease-in-out infinite;
+        @keyframes bounce {
+          0%, 100% { transform: translateX(-50%) translateY(0); }
+          50% { transform: translateX(-50%) translateY(10px); }
+        }
+        
+        @keyframes click-effect {
+          0% { transform: scale(1); }
+          50% { transform: scale(0.95); }
+          100% { transform: scale(1); }
+        }
+        
+        .animate-pulse-gold {
+          animation: pulse-gold 2s ease-in-out infinite;
+        }
+        
+        .animate-bounce {
+          animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .animate-click {
+          animation: click-effect 0.3s ease-in-out;
         }
       `}</style>
     </div>

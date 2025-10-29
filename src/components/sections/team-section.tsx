@@ -183,7 +183,7 @@ const TeamSection = () => {
   };
 
   return (
-    <section id="team-section" className="relative overflow-hidden bg-black">
+    <section id="team-section" className="relative overflow-hidden">
       <div className="container relative z-10">
         <div 
           className={`w-full min-h-screen flex flex-col justify-center items-center py-10 px-4 sm:px-6 md:px-10 lg:px-20 transition-all duration-1000 ease-out transform ${

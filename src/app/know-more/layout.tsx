@@ -18,7 +18,7 @@ export default function KnowMoreLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-black text-white font-sans">
+      <body className="min-h-screen text-white font-sans">
         {children}
       </body>
     </html>

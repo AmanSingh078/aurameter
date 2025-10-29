@@ -276,19 +276,9 @@ const HeroSection = () => {
         `}
       </style>
       
-      {/* Premium Background Pattern */}
+      {/* Premium Background Pattern - Simplified */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
-        <div className="absolute inset-0 bg-black"></div>
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            background: `
-              radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.03) 0%, transparent 50%),
-              radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 50%),
-              linear-gradient(180deg, #000000 0%, #0a0a0a 50%, #000000 100%)
-            `
-          }}
-        ></div>
+        <div className="absolute inset-0 bg-transparent"></div>
       </div>
 
       <section className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden py-10 px-4">

@@ -6,34 +6,34 @@ const PremiumCarousel = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const autoRotateInterval = useRef<NodeJS.Timeout | null>(null);
+  // Removed autoRotateInterval since we're removing auto-rotation
 
-  // Card data from vvv.html
+  // Card data with local images
   const cards = [
     {
-      name: "Neon Pulse",
-      image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=800",
-      alt: "Neon Pulse - Musical instruments in neon lighting"
+      name: "Theme Relax",
+      image: "/image/theme-relax.png",
+      alt: "Theme Relax - Premium Aura Theme"
     },
     {
-      name: "Cyber Dream",
-      image: "https://images.unsplash.com/photo-1519125323398-675f0ddb6308?q=80&w=800",
-      alt: "Cyber Dream - Futuristic mountain landscape"
+      name: "Barbie Dream",
+      image: "/image/barbie.jpg",
+      alt: "Barbie Dream - Premium Aura Theme"
     },
     {
-      name: "Aurora Vibe",
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=800",
-      alt: "Aurora Vibe - Premium product photography"
+      name: "Ben 10 Adventure",
+      image: "/image/ben-10.webp",
+      alt: "Ben 10 Adventure - Premium Aura Theme"
     },
     {
-      name: "Vapor Light",
-      image: "https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?q=80&w=800",
-      alt: "Vapor Light - Vintage technology"
+      name: "Gojo Art",
+      image: "/image/gojo-art.jpg",
+      alt: "Gojo Art - Premium Aura Theme"
     },
     {
-      name: "Sunset Calm",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=800",
-      alt: "Sunset Calm - Portrait in warm lighting"
+      name: "Harry Potter Magic",
+      image: "/image/hp-art.jpg",
+      alt: "Harry Potter Magic - Premium Aura Theme"
     }
   ];
 
@@ -72,22 +72,7 @@ const PremiumCarousel = () => {
     cardElements[right2Index].classList.add('right2');
   };
 
-  // Auto-rotation functionality
-  const startAutoRotate = () => {
-    if (autoRotateInterval.current) clearInterval(autoRotateInterval.current);
-    autoRotateInterval.current = setInterval(() => {
-      next();
-    }, 3000);
-  };
-
-  const stopAutoRotate = () => {
-    if (autoRotateInterval.current) {
-      clearInterval(autoRotateInterval.current);
-      autoRotateInterval.current = null;
-    }
-  };
-
-  // Navigation functions
+  // Navigation functions (removed auto-rotation)
   const next = () => {
     if (isAnimating) return;
     setIsAnimating(true);
@@ -107,8 +92,6 @@ const PremiumCarousel = () => {
     setIsAnimating(true);
     setIndex(i);
     setTimeout(() => setIsAnimating(false), 700);
-    stopAutoRotate();
-    startAutoRotate();
   };
 
   // Handle card click - navigate to clicked card
@@ -155,7 +138,7 @@ const PremiumCarousel = () => {
     startTime = Date.now();
     isDragging = false;
     hasMoved = false;
-    stopAutoRotate();
+    // Removed stopAutoRotate since we're removing auto-rotation
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
@@ -180,7 +163,7 @@ const PremiumCarousel = () => {
       const cardElement = clickedCard.closest('.card');
       if (cardElement) {
         handleCardClick(cardElement as HTMLElement);
-        startAutoRotate();
+        // Removed startAutoRotate since we're removing auto-rotation
         return;
       }
     }
@@ -194,7 +177,7 @@ const PremiumCarousel = () => {
       }
     }
 
-    startAutoRotate();
+    // Removed startAutoRotate since we're removing auto-rotation
     isDragging = false;
     hasMoved = false;
   };
@@ -212,7 +195,7 @@ const PremiumCarousel = () => {
     mouseStartTime = Date.now();
     isMouseDragging = false;
     mouseHasMoved = false;
-    stopAutoRotate();
+    // Removed stopAutoRotate since we're removing auto-rotation
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -241,7 +224,7 @@ const PremiumCarousel = () => {
       const cardElement = clickedCard.closest('.card');
       if (cardElement) {
         handleCardClick(cardElement as HTMLElement);
-        startAutoRotate();
+        // Removed startAutoRotate since we're removing auto-rotation
         mouseStartX = 0;
         mouseStartY = 0;
         isMouseDragging = false;
@@ -259,40 +242,38 @@ const PremiumCarousel = () => {
       }
     }
 
-    startAutoRotate();
+    // Removed startAutoRotate since we're removing auto-rotation
     mouseStartX = 0;
     mouseStartY = 0;
     isMouseDragging = false;
     mouseHasMoved = false;
   };
 
-  // Pause on hover
+  // Pause on hover (removed auto-rotation functionality)
   const handleMouseEnter = () => {
-    stopAutoRotate();
+    // Removed stopAutoRotate since we're removing auto-rotation
   };
 
   const handleMouseLeave = () => {
-    startAutoRotate();
+    // Removed startAutoRotate since we're removing auto-rotation
   };
 
   // Keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
       prev();
-      stopAutoRotate();
-      startAutoRotate();
+      // Removed auto-rotation functions since we're removing auto-rotation
     }
     if (e.key === "ArrowRight") {
       next();
-      stopAutoRotate();
-      startAutoRotate();
+      // Removed auto-rotation functions since we're removing auto-rotation
     }
   };
 
   // Initialize and cleanup
   useEffect(() => {
     updateCarousel();
-    startAutoRotate();
+    // Removed startAutoRotate() to disable auto-rotation
 
     // Add mouse move/up listeners to document for better drag detection
     document.addEventListener('mousemove', handleMouseMove);
@@ -304,15 +285,8 @@ const PremiumCarousel = () => {
       preloadImg.src = card.image;
     });
 
-    // Stop auto-rotation when user prefers reduced motion
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      stopAutoRotate();
-    }
-
     return () => {
-      if (autoRotateInterval.current) {
-        clearInterval(autoRotateInterval.current);
-      }
+      // Removed clearInterval for autoRotateInterval
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
     };
@@ -362,8 +336,7 @@ const PremiumCarousel = () => {
           aria-label="Previous slide"
           onClick={() => {
             prev();
-            stopAutoRotate();
-            startAutoRotate();
+            // Removed auto-rotation functions since we're removing auto-rotation
           }}
         >
           ‹
@@ -375,8 +348,7 @@ const PremiumCarousel = () => {
               className={`indicator ${i === index % cards.length ? 'active' : ''}`}
               onClick={() => {
                 goToSlide(i);
-                stopAutoRotate();
-                startAutoRotate();
+                // Removed auto-rotation functions since we're removing auto-rotation
               }}
               role="tab"
               aria-label={`Go to slide ${i + 1}`}
@@ -388,8 +360,7 @@ const PremiumCarousel = () => {
           aria-label="Next slide"
           onClick={() => {
             next();
-            stopAutoRotate();
-            startAutoRotate();
+            // Removed auto-rotation functions since we're removing auto-rotation
           }}
         >
           ›

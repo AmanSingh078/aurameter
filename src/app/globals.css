@@ -394,6 +394,13 @@
     position: relative;
     /* Ensure proper spacing */
     line-height: 1.6;
+    
+    /* Full website background image */
+    background-image: url('/pawel-czerwinski-2zJ3m80fSU4-unsplash.jpg');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
   }
 
   /* Remove complex background effects */
@@ -415,6 +422,9 @@
     body {
       background: #000000;
       line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.03) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(212, 175, 55, 0.02) 0%, transparent 20%);
     }
     
     body::before {

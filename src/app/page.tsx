@@ -3,7 +3,7 @@
 import NavigationHeader from '@/components/sections/navigation-header';
 import HeroSection from '@/components/sections/hero-section';
 import AboutSection from '@/components/sections/about-section';
-import ChatFeaturesSlider from '@/components/sections/chat-features-slider';
+import ChatFeaturesSliderFixed from '@/components/sections/chat-features-slider-fixed';
 import PremiumCarousel from '@/components/sections/premium-carousel';
 import AwardsSection from '@/components/sections/awards-section';
 import TeamSection from '@/components/sections/team-section';
@@ -15,6 +15,7 @@ import BackToTop from '@/components/ui/back-to-top';
 import ScrollEffects from '@/components/ui/scroll-effects';
 import ModernAnimations from '@/components/ui/modern-animations';
 import ScrollFromGround from '@/components/ui/scroll-from-ground';
+import AuraTestSection from '@/components/sections/aura-test-section';
 
 export default function Home() {
   useSmoothScroll();
@@ -57,7 +58,7 @@ export default function Home() {
   const contactVisible = isElementInViewport(contactRef.current);
 
   return (
-    <main className="min-h-screen w-full bg-black text-white overflow-x-hidden">
+    <main className="min-h-screen w-full text-white overflow-x-hidden">
       <ModernAnimations />
       {!isMobile && <ScrollEffects />}
       <NavigationHeader />
@@ -67,29 +68,37 @@ export default function Home() {
         <div id="hero" className="relative w-full">
           <HeroSection />
         </div>
-        <div ref={aboutRef} id="about-section" className="py-8 md:py-12">
+        <div ref={aboutRef} id="about-section" className="py-4">
           <ScrollFromGround delay={100} animationType="rise">
             <AboutSection />
           </ScrollFromGround>
         </div>
-        <div ref={portfolioRef} id="work" className="py-8 md:py-12">
+        <div ref={portfolioRef} id="work" className="py-4">
           <ScrollFromGround delay={200} animationType="pop">
-            <ChatFeaturesSlider />
+            <ChatFeaturesSliderFixed />
           </ScrollFromGround>
-          <div className="py-8 md:py-12">
+          {/* <div className="py-4">
             <PremiumCarousel />
-          </div>
+          </div> */}
         </div>
-        <div ref={awardsRef} id="recognition" className="py-8 md:py-12">
+        <div ref={awardsRef} id="recognition" className="py-4">
           <ScrollFromGround delay={300} animationType="slide">
             <AwardsSection />
           </ScrollFromGround>
         </div>
-        <div ref={teamRef} id="team" className="py-8 md:py-12">
+        {/* Moving PremiumCarousel below AwardsSection as requested */}
+        <div className="py-4">
+          <PremiumCarousel />
+        </div>
+        {/* New Aura Test Section */}
+        <div className="py-4">
+          <AuraTestSection />
+        </div>
+        <div ref={teamRef} id="team" className="py-4">
           {/* Removed ScrollFromGround to eliminate spacing */}
           <TeamSection />
         </div>
-        <div ref={contactRef} id="contact-us" className="py-8 md:py-12">
+        <div ref={contactRef} id="contact-us" className="py-4">
           <ScrollFromGround delay={400} animationType="rise">
             <ContactSection />
           </ScrollFromGround>

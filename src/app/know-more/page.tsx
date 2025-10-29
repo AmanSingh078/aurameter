@@ -89,7 +89,7 @@ const KnowMorePage = () => {
             <p className="subtitle">Building for Gen Z</p>
             <h1>About Aurameter</h1>
             <div className="divider"></div>
-            <p className="tagline">An AI-powered, gamified social platform where your aura becomes your value and every interaction rewards real expression</p>
+            <p className="tagline" style={{ color: 'white' }}>An AI-powered, gamified social platform where your aura becomes your value and every interaction rewards real expression</p>
             
             <div className="hero-buttons">
               <Link href="/#about-section" className="hero-button primary">
@@ -110,10 +110,10 @@ const KnowMorePage = () => {
               <h2>Redefining Social Media<br />for a New Generation</h2>
             </div>
             <div className="mission-content fade-in-viewport">
-              <p>People's attention spans have shifted dramatically — from watching full-length movies to spending just 15 seconds on a reel. Most social media today leaves users feeling anxious, drained, and stuck in procrastination loops built on vanity metrics and endless scrolling.</p>
-              <p>Aurameter is different. We're building a story-only social platform powered by AI that measures vibe, not popularity. Every story you post earns personalized AI-generated compliments and AuraPoints, turning social behavior into emotionally uplifting experiences with real-world value.</p>
-              <p className="highlight">"Aura isn't just vibes — it's the new status, identity, and value Gen Z craves."</p>
-              <p>Our platform blends AI, gamification, and emotional intelligence to create a space where authenticity, energy, and creativity are celebrated. Unlike platforms focused on likes and followers, we reward genuine self-expression, helping users build confidence while earning tangible rewards through our brand ecosystem.</p>
+              <p style={{ color: 'white' }}>People's attention spans have shifted dramatically — from watching full-length movies to spending just 15 seconds on a reel. Most social media today leaves users feeling anxious, drained, and stuck in procrastination loops built on vanity metrics and endless scrolling.</p>
+              <p style={{ color: 'white' }}>Aurameter is different. We're building a story-only social platform powered by AI that measures vibe, not popularity. Every story you post earns personalized AI-generated compliments and AuraPoints, turning social behavior into emotionally uplifting experiences with real-world value.</p>
+              <p className="highlight" style={{ color: 'white' }}>"Aura isn't just vibes — it's the new status, identity, and value Gen Z craves."</p>
+              <p style={{ color: 'white' }}>Our platform blends AI, gamification, and emotional intelligence to create a space where authenticity, energy, and creativity are celebrated. Unlike platforms focused on likes and followers, we reward genuine self-expression, helping users build confidence while earning tangible rewards through our brand ecosystem.</p>
             </div>
           </div>
         </section>
@@ -129,32 +129,32 @@ const KnowMorePage = () => {
               <div className="value-item">
                 <div className="value-number">01</div>
                 <h3>AI-Powered Validation</h3>
-                <p>Our Aura AI analyzes your stories and interactions to deliver personalized compliments and aura scores that uplift mood and boost confidence.</p>
+                <p style={{ color: 'white' }}>Our Aura AI analyzes your stories and interactions to deliver personalized compliments and aura scores that uplift mood and boost confidence.</p>
               </div>
               <div className="value-item">
                 <div className="value-number">02</div>
                 <h3>Gamified Engagement</h3>
-                <p>Earn AuraPoints through stories, quizzes, steps, and mindful actions. Our decay mechanics ensure healthy engagement without addiction.</p>
+                <p style={{ color: 'white' }}>Earn AuraPoints through stories, quizzes, steps, and mindful actions. Our decay mechanics ensure healthy engagement without addiction.</p>
               </div>
               <div className="value-item">
                 <div className="value-number">03</div>
                 <h3>Real-World Rewards</h3>
-                <p>Convert your AuraPoints into brand rewards and tangible perks — giving your social presence genuine purchasing power.</p>
+                <p style={{ color: 'white' }}>Convert your AuraPoints into brand rewards and tangible perks — giving your social presence genuine purchasing power.</p>
               </div>
               <div className="value-item">
                 <div className="value-number">04</div>
                 <h3>Emotional Intelligence</h3>
-                <p>Our emotionally friendly chatbot helps with social queries and provides genuine support, making digital interactions feel human.</p>
+                <p style={{ color: 'white' }}>Our emotionally friendly chatbot helps with social queries and provides genuine support, making digital interactions feel human.</p>
               </div>
               <div className="value-item">
                 <div className="value-number">05</div>
                 <h3>Community Gaming</h3>
-                <p>Play mini multiplayer games with friends, building connections through shared experiences, not just passive content consumption.</p>
+                <p style={{ color: 'white' }}>Play mini multiplayer games with friends, building connections through shared experiences, not just passive content consumption.</p>
               </div>
               <div className="value-item">
                 <div className="value-number">06</div>
                 <h3>Authentic Expression</h3>
-                <p>No grids, no vanity metrics — just emotional resonance, genuine vibes, and a space that celebrates your authentic self.</p>
+                <p style={{ color: 'white' }}>No grids, no vanity metrics — just emotional resonance, genuine vibes, and a space that celebrates your authentic self.</p>
               </div>
             </div>
           </div>
@@ -165,9 +165,9 @@ const KnowMorePage = () => {
           <div className="container">
             <div className="story-content fade-in-viewport">
               <h3>The Journey of Ankit Bhati</h3>
-              <p>As a college student and part of Gen Z, I felt firsthand how social media can damage confidence instead of building it. That realization sparked the vision for Aurameter — a platform where your aura, emotions, and creativity actually matter, where every story turns into something that rewards you back.</p>
-              <p>In my second year, while managing internships and startup experiences, I led a team of 20, tested products with 800+ users, visited 10+ colleges, and connected with investors daily. We onboarded 25 campus CEOs and secured 15+ brand deals to build a reward-ready ecosystem for India's Gen Z.</p>
-              <p>The journey taught me that leadership isn't about doing everything yourself — it's about empowering your team, listening actively, and turning challenges into opportunities for collective growth. Every late-night coding session, every user feedback call, every pivot has shaped Aurameter into what it is today.</p>
+              <p style={{ color: 'white' }}>As a college student and part of Gen Z, I felt firsthand how social media can damage confidence instead of building it. That realization sparked the vision for Aurameter — a platform where your aura, emotions, and creativity actually matter, where every story turns into something that rewards you back.</p>
+              <p style={{ color: 'white' }}>In my second year, while managing internships and startup experiences, I led a team of 20, tested products with 800+ users, visited 10+ colleges, and connected with investors daily. We onboarded 25 campus CEOs and secured 15+ brand deals to build a reward-ready ecosystem for India's Gen Z.</p>
+              <p style={{ color: 'white' }}>The journey taught me that leadership isn't about doing everything yourself — it's about empowering your team, listening actively, and turning challenges into opportunities for collective growth. Every late-night coding session, every user feedback call, every pivot has shaped Aurameter into what it is today.</p>
             </div>
           </div>
         </section>
@@ -207,19 +207,19 @@ const KnowMorePage = () => {
               <div className="commitment-grid">
                 <div className="commitment-item fade-in-viewport">
                   <h3>Social Intelligence Currency</h3>
-                  <p>We're making social intelligence the new social currency. Just as LinkedIn became the standard for professional credibility, Aurameter will become the currency for personal authenticity and emotional resonance.</p>
+                  <p style={{ color: 'white' }}>We're making social intelligence the new social currency. Just as LinkedIn became the standard for professional credibility, Aurameter will become the currency for personal authenticity and emotional resonance.</p>
                 </div>
                 <div className="commitment-item fade-in-viewport">
                   <h3>Healthier Digital Habits</h3>
-                  <p>Gen Z will no longer measure their worth in likes or followers, but in their aura — their authenticity, energy, and emotional intelligence. Social media will uplift confidence, not drain it.</p>
+                  <p style={{ color: 'white' }}>Gen Z will no longer measure their worth in likes or followers, but in their aura — their authenticity, energy, and emotional intelligence. Social media will uplift confidence, not drain it.</p>
                 </div>
                 <div className="commitment-item fade-in-viewport">
                   <h3>India's Global Platform</h3>
-                  <p>In five years, Aurameter will become India's next big social media platform — a global product that resonates with Gen Z everywhere, setting worldwide standards for authentic digital connection.</p>
+                  <p style={{ color: 'white' }}>In five years, Aurameter will become India's next big social media platform — a global product that resonates with Gen Z everywhere, setting worldwide standards for authentic digital connection.</p>
                 </div>
                 <div className="commitment-item fade-in-viewport">
                   <h3>Mental Well-Being Focus</h3>
-                  <p>We're shifting from addictive, surface-level platforms to an ecosystem where technology actively supports mental well-being, stronger self-esteem, and communities that celebrate real vibes over vanity metrics.</p>
+                  <p style={{ color: 'white' }}>We're shifting from addictive, surface-level platforms to an ecosystem where technology actively supports mental well-being, stronger self-esteem, and communities that celebrate real vibes over vanity metrics.</p>
                 </div>
               </div>
             </div>

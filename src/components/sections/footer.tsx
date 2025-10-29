@@ -58,7 +58,7 @@ export default function Footer() {
           <div className="lg:col-span-5 hidden lg:flex flex-col justify-between min-h-[250px] animate-slide-in-left">
             <div>
               <p className="text-[12px] sm:text-[13px] leading-[1.5] tracking-[0] text-muted-foreground subtitle">
-                ©2025.All Rights Reserved.<br />Rebellion7 LLC
+                ©2025.All Rights Reserved.
               </p>
             </div>
             <div className="flex items-end space-x-3 sm:space-x-4">
@@ -69,7 +69,7 @@ export default function Footer() {
 
           <div className="lg:col-span-7 animate-slide-in-right">
             <p className="text-[9px] sm:text-[10px] font-bold leading-[1.4] tracking-[0.1em] uppercase text-muted-foreground mb-8 sm:mb-10 md:mb-12">
-              you can check more<br />fun live projects,<br />work in progress,<br />and explorations
+              Discover AuraMeter,<br />a revolutionary platform<br />for measuring and enhancing<br />your digital presence
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 sm:gap-x-10 gap-y-5 sm:gap-y-6 mb-8 sm:mb-10 md:mb-12">
@@ -122,7 +122,7 @@ export default function Footer() {
               let's collaborate
               <Image
                 src={faceSvgUrl}
-                alt="face icon"
+                alt=""
                 width={24}
                 height={24}
                 className="transition-transform duration-300 group-hover:rotate-12 animate-float"
@@ -132,7 +132,7 @@ export default function Footer() {
 
             <div className="lg:hidden mt-10 sm:mt-12 text-center animate-fade-in">
               <p className="text-[12px] sm:text-[13px] leading-[1.5] tracking-[0] text-muted-foreground subtitle">
-                ©2025.All Rights Reserved.<br />Rebellion7 LLC
+                ©2025.All Rights Reserved.
               </p>
             </div>
           </div>
