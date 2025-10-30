@@ -99,9 +99,7 @@ export default function Home() {
           <TeamSection />
         </div>
         <div ref={contactRef} id="contact-us" className="py-4">
-          <ScrollFromGround delay={400} animationType="rise">
-            <ContactSection />
-          </ScrollFromGround>
+          <ContactSection />
         </div>
       </div>
       

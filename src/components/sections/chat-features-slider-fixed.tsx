@@ -1,15 +1,40 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { useScrollAnimation } from '@/lib/hooks/use-scroll-animation';
 
 const ChatFeaturesSliderFixed = () => {
+  const { scrollY, isScrollingDown } = useScrollAnimation();
+  const [isInView, setIsInView] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
   const [isTransitioning, setIsTransitioning] = useState(true);
   const [slideWidth, setSlideWidth] = useState(0);
+  const [cardsToShow, setCardsToShow] = useState(1);
   
   // Feature data
+  
+  // Check if component is in view for animation
+  useEffect(() => {
+    const checkIfInView = () => {
+      const element = document.querySelector('.slider-container');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        setIsInView(rect.top < window.innerHeight * 0.8);
+      }
+    };
+
+    checkIfInView();
+    window.addEventListener('scroll', checkIfInView);
+    window.addEventListener('resize', checkIfInView);
+    
+    return () => {
+      window.removeEventListener('scroll', checkIfInView);
+      window.removeEventListener('resize', checkIfInView);
+    };
+  }, []);
+
   const features = [
     {
       title: "Compliments & Interaction Personalization",
@@ -49,25 +74,29 @@ const ChatFeaturesSliderFixed = () => {
     }
   ];
 
-  // Duplicate features for infinite scroll effect
-  const duplicatedFeatures = [...features, ...features, ...features];
+  // Calculate how many sets we need for infinite scroll based on cardsToShow
+  const getDuplicatedFeatures = () => {
+    const visibleFeatures = Math.ceil(features.length / cardsToShow) * cardsToShow;
+    return [...features, ...features, ...features].slice(0, visibleFeatures * 3);
+  };
+
+  const duplicatedFeatures = getDuplicatedFeatures();
 
   // Handle next slide
   const nextSlide = useCallback(() => {
-    setCurrentSlide(prev => prev + 1);
-  }, []);
+    setCurrentSlide(prev => prev + cardsToShow);
+  }, [cardsToShow]);
 
   // Handle previous slide
   const prevSlide = useCallback(() => {
-    setCurrentSlide(prev => prev - 1);
-  }, []);
+    setCurrentSlide(prev => prev - cardsToShow);
+  }, [cardsToShow]);
 
   // Go to specific slide
   const goToSlide = useCallback((index: number) => {
-    // Adjust index to point to the middle set
-    const adjustedIndex = index + features.length;
+    const adjustedIndex = index * cardsToShow + features.length;
     setCurrentSlide(adjustedIndex);
-  }, [features.length]);
+  }, [features.length, cardsToShow]);
 
   // Auto-play functionality
   useEffect(() => {
@@ -75,40 +104,21 @@ const ChatFeaturesSliderFixed = () => {
     
     const interval = setInterval(() => {
       nextSlide();
-    }, 5000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [isAutoPlaying, nextSlide]);
 
-  // Handle infinite scrolling logic
-  useEffect(() => {
-    const handleInfiniteScroll = () => {
-      if (currentSlide >= features.length * 2) {
-        // Jump to the beginning without animation
-        setIsTransitioning(false);
-        setTimeout(() => {
-          setCurrentSlide(features.length);
-          setIsTransitioning(true);
-        }, 50);
-      } else if (currentSlide < features.length) {
-        // Jump to the end without animation
-        setIsTransitioning(false);
-        setTimeout(() => {
-          setCurrentSlide(features.length * 2 - 1);
-          setIsTransitioning(true);
-        }, 50);
-      }
-    };
-
-    handleInfiniteScroll();
-  }, [currentSlide, features.length]);
-
-  // Handle resize to calculate slide width
+  // Handle responsive cards display
   useEffect(() => {
     const handleResize = () => {
-      if (sliderRef.current) {
-        const containerWidth = sliderRef.current.clientWidth;
-        setSlideWidth(containerWidth);
+      const width = window.innerWidth;
+      if (width >= 1024) {
+        setCardsToShow(3); // Desktop: 3 cards
+      } else if (width >= 768) {
+        setCardsToShow(2); // Tablet: 2 cards
+      } else {
+        setCardsToShow(1); // Mobile: 1 card
       }
     };
 
@@ -116,6 +126,45 @@ const ChatFeaturesSliderFixed = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Handle infinite scrolling logic
+  useEffect(() => {
+    const totalSlides = features.length;
+    const maxSlide = totalSlides * 2;
+    const minSlide = totalSlides;
+
+    const handleInfiniteScroll = () => {
+      if (currentSlide >= maxSlide) {
+        setIsTransitioning(false);
+        setTimeout(() => {
+          setCurrentSlide(minSlide);
+          setIsTransitioning(true);
+        }, 50);
+      } else if (currentSlide < minSlide) {
+        setIsTransitioning(false);
+        setTimeout(() => {
+          setCurrentSlide(maxSlide - cardsToShow);
+          setIsTransitioning(true);
+        }, 50);
+      }
+    };
+
+    handleInfiniteScroll();
+  }, [currentSlide, features.length, cardsToShow]);
+
+  // Handle resize to calculate slide width
+  useEffect(() => {
+    const handleResize = () => {
+      if (sliderRef.current) {
+        const containerWidth = sliderRef.current.clientWidth;
+        setSlideWidth(containerWidth / cardsToShow);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [cardsToShow]);
 
   // Pause autoplay on hover
   const handleMouseEnter = () => {
@@ -134,13 +183,24 @@ const ChatFeaturesSliderFixed = () => {
 
   // Helper function to get the active dot index
   const getActiveDotIndex = () => {
-    // Ensure we always get a positive result
-    const adjustedIndex = (currentSlide - features.length) % features.length;
-    return adjustedIndex < 0 ? adjustedIndex + features.length : adjustedIndex;
+    const totalSlides = Math.ceil(features.length / cardsToShow);
+    const adjustedIndex = ((currentSlide - features.length) / cardsToShow) % totalSlides;
+    return adjustedIndex < 0 ? adjustedIndex + totalSlides : adjustedIndex;
+  };
+
+  // Calculate number of dots based on cards to show
+  const getTotalDots = () => {
+    return Math.ceil(features.length / cardsToShow);
   };
 
   return (
-    <section className="relative py-16 sm:py-20 md:py-28 overflow-hidden bg-transparent">
+    <section 
+      className={`relative py-16 sm:py-20 md:py-28 overflow-hidden bg-transparent transition-all duration-1000 motion-reduce:transition-none`}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? 'translateY(0)' : 'translateY(20px)'
+      }}
+    >
       {/* Enhanced background with subtle animation */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 [background-image:radial-gradient(60%_40%_at_50%_0%,#ffffff0d,transparent_60%)] opacity-20"></div>
@@ -168,74 +228,62 @@ const ChatFeaturesSliderFixed = () => {
           </div>
         </div>
 
-        <div className="slider-container max-w-7xl mx-auto px-4 relative">
-          <div 
-            className="slider-wrapper overflow-hidden relative p-4"
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* Navigation Arrows */}
-            <button 
-              className="nav-arrow left absolute top-1/2 -translate-y-1/2 bg-black/90 text-white/90 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:text-yellow-300 text-xl sm:text-2xl font-light rounded-lg"
-              onClick={prevSlide}
-              style={{ left: '1rem' }}
-              aria-label="Previous slide"
+        {/* Carousel Container Box */}
+        <div className="carousel-box bg-black/40 backdrop-blur-sm border border-yellow-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-yellow-500/10 max-w-7xl mx-auto">
+          <div className="slider-container relative">
+            <div 
+              className="slider-wrapper overflow-hidden relative"
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
             >
-              ‹
-            </button>
-            <button 
-              className="nav-arrow right absolute top-1/2 -translate-y-1/2 bg-black/90 text-white/90 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center cursor-pointer z-10 transition-all duration-300 hover:text-yellow-300 text-xl sm:text-2xl font-light rounded-lg"
-              onClick={nextSlide}
-              style={{ right: '1rem' }}
-              aria-label="Next slide"
-            >
-              ›
-            </button>
-            
-            {/* Slider */}
-            <div className="slider overflow-hidden">
-              <div 
-                ref={sliderRef}
-                className={`flex ${isTransitioning ? 'transition-transform duration-500 ease-in-out' : ''}`}
-                style={{ transform: getTransformValue() }}
-              >
-                {duplicatedFeatures.map((feature, index) => (
-                  <div 
-                    key={index}
-                    className="w-full flex-shrink-0 px-4 flex items-center justify-center"
-                  >
-                    <div className="card group bg-gradient-to-b from-black via-black/95 to-black p-5 relative flex flex-col w-full max-w-2xl h-24 transition-all duration-500 rounded-3xl overflow-hidden border border-yellow-500/20 hover:border-yellow-500/40">
-                      <div className="card-content flex flex-col justify-center flex-1 relative z-10">
-                        <div className="absolute top-0 right-0 w-8 h-8 bg-yellow-500/5 rounded-full blur-xl transform translate-x-4 -translate-y-4 group-hover:translate-x-2 transition-transform duration-700"></div>
-                      
-                        <h3 className="text-base font-bold mb-1 leading-tight text-white title group-hover:text-yellow-300 transition-all duration-300">
-                          {feature.title}
-                        </h3>
-                        <p className="text-xs leading-relaxed text-gray-300/90 font-light subtitle line-clamp-2">
-                          {feature.description}
-                        </p>
+              {/* Slider */}
+              <div className="slider overflow-hidden rounded-2xl">
+                <div 
+                  ref={sliderRef}
+                  className={`flex ${isTransitioning ? 'transition-transform duration-700 ease-in-out' : ''}`}
+                  style={{ transform: getTransformValue() }}
+                >
+                  {duplicatedFeatures.map((feature, index) => (
+                    <div 
+                      key={index}
+                      className="flex-shrink-0 px-3"
+                      style={{ width: `${100 / cardsToShow}%` }}
+                    >
+                      <div className="card group bg-gradient-to-br from-black via-black/95 to-black/90 p-6 relative flex flex-col w-full transition-all duration-500 rounded-2xl overflow-hidden border border-yellow-500/20 hover:border-yellow-500/40 hover:shadow-lg hover:shadow-yellow-500/10 h-48">
+                        <div className="card-content flex flex-col justify-center flex-1 relative z-10">
+                          {/* Animated background elements */}
+                          <div className="absolute top-0 right-0 w-12 h-12 bg-yellow-500/5 rounded-full blur-xl transform translate-x-4 -translate-y-4 group-hover:translate-x-2 group-hover:translate-y-2 transition-transform duration-700"></div>
+                          <div className="absolute bottom-0 left-0 w-8 h-8 bg-yellow-500/5 rounded-full blur-lg transform -translate-x-2 translate-y-2 group-hover:-translate-x-1 group-hover:translate-y-1 transition-transform duration-700"></div>
+                        
+                          <h3 className="text-lg font-bold mb-2 leading-tight text-white title group-hover:text-yellow-300 transition-all duration-300 line-clamp-2">
+                            {feature.title}
+                          </h3>
+                          <p className="text-sm leading-relaxed text-gray-300/90 font-light subtitle line-clamp-3">
+                            {feature.description}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Dots Navigation */}
-          <div className="dots flex justify-center items-center gap-3 mt-8">
-            {features.map((_, index) => (
-              <button
-                key={index}
-                className={`dot w-2 h-2 rounded-full cursor-pointer transition-all duration-300 ${
-                  index === getActiveDotIndex()
-                    ? 'bg-yellow-400' 
-                    : 'bg-gray-600 hover:bg-gray-500'
-                }`}
-                onClick={() => goToSlide(index)}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+            {/* Dots Navigation */}
+            <div className="dots flex justify-center items-center gap-3 mt-8">
+              {Array.from({ length: getTotalDots() }).map((_, index) => (
+                <button
+                  key={index}
+                  className={`dot w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+                    index === getActiveDotIndex()
+                      ? 'bg-yellow-400 scale-125 shadow-lg shadow-yellow-400/30' 
+                      : 'bg-gray-600 hover:bg-gray-500'
+                  }`}
+                  onClick={() => goToSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>

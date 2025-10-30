@@ -9,57 +9,13 @@ const ContactSection = () => {
   const { scrollY, velocity, scrollOpacity, scrollBlur, hueRotation } =
     useScrollAnimation();
   const isMobile = useIsMobile();
-  const [isInView, setIsInView] = useState(false);
-  const [elementTop, setElementTop] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const element = document.getElementById("contact-us");
-      if (element) {
-        setElementTop(element.offsetTop);
-      }
-    };
-
-    // Check if element is in view
-    const checkInView = () => {
-      const element = document.getElementById("contact-us");
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        setIsInView(inView);
-        
-        // Set visible when element comes into view
-        if (inView && !isVisible) {
-          setIsVisible(true);
-        }
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", checkInView);
-    checkInView();
-    handleResize();
-
-    return () => {
-      window.removeEventListener("scroll", checkInView);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [isVisible]);
-
-  // Calculate parallax effect for background elements
-  const parallaxValue = (scrollY - elementTop) * 0.1;
 
   return (
     <section id="contact-us" className="relative overflow-hidden">
       <div className="container relative z-10">
         {/* Center all content in a single column */}
         <div 
-          className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out transform ${
-            isVisible 
-              ? 'opacity-100 translate-y-0' 
-              : 'opacity-0 translate-y-20'
-          }`}
+          className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out transform opacity-100 translate-y-0`}
         >
           {/* Centered Content */}
           <div>
@@ -70,7 +26,6 @@ const ContactSection = () => {
                   ? {}
                   : {
                       fontFamily: 'var(--font-title)',
-                      transform: `translateY(${parallaxValue * 0.1}px)`,
                     }
               }
             >
@@ -90,13 +45,7 @@ const ContactSection = () => {
 
             <div
               className="text-[16px] leading-[1.7] max-w-xl text-foreground/80 mx-auto mb-8 subtitle"
-              style={
-                isMobile
-                  ? {}
-                  : {
-                      transform: `translateY(${parallaxValue * 0.05}px)`,
-                    }
-              }
+              style={isMobile ? {} : {}}
             >
               <p className="mb-4">
                 Not another social app — a vibe movement. Step into the world
@@ -123,27 +72,15 @@ const ContactSection = () => {
                   }
                 }}
                 className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-full font-bold text-[14px] md:text-[16px] transition-all duration-300 hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105"
-                style={
-                  isMobile
-                    ? {}
-                    : {
-                        transform: `translateY(${isInView ? 0 : 20}px)`,
-                      }
-                }
+                style={isMobile ? {} : {}}
               >
                 <span className="relative z-10">→ Join the Waitlist</span>
               </button>
 
               <a
                 href="mailto:support@aurameter.in"
-                className="px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 rounded-full font-bold text-[14px] md:text-[16px] transition-all duration-300 hover:border-white/60 hover:bg-white/10 transform hover:scale-105"
-                style={
-                  isMobile
-                    ? {}
-                    : {
-                        transform: `translateY(${isInView ? 0 : 20}px)`,
-                      }
-                }
+                className="px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 rounded-full font-bold text-[14px] md:text/[16px] transition-all duration-300 hover:border-white/60 hover:bg-white/10 transform hover:scale-105"
+                style={isMobile ? {} : {}}
               >
                 → Contact the Team
               </a>

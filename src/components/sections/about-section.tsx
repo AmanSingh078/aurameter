@@ -16,44 +16,42 @@ const AboutSection = () => {
   const { scrollY, velocity, scrollOpacity, scrollBlur, hueRotation } = useScrollAnimation();
   const isMobile = useIsMobile();
   const [isInView, setIsInView] = useState(false);
-  const [elementTop, setElementTop] = useState(0);
 
+  // Check if component is in view for animation
   useEffect(() => {
-    const handleResize = () => {
-      const element = document.getElementById('about-section');
-      if (element) {
-        setElementTop(element.offsetTop);
-      }
-    };
-
-    // Check if element is in view
-    const checkInView = () => {
+    const checkIfInView = () => {
       const element = document.getElementById('about-section');
       if (element) {
         const rect = element.getBoundingClientRect();
-        setIsInView(rect.top < window.innerHeight && rect.bottom > 0);
+        setIsInView(rect.top < window.innerHeight * 0.8);
       }
     };
-    
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', checkInView);
-    checkInView();
-    handleResize();
+
+    checkIfInView();
+    window.addEventListener('scroll', checkIfInView);
+    window.addEventListener('resize', checkIfInView);
     
     return () => {
-      window.removeEventListener('scroll', checkInView);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('scroll', checkIfInView);
+      window.removeEventListener('resize', checkIfInView);
     };
   }, []);
 
   // Calculate parallax effect for background elements
-  const parallaxValue = (scrollY - elementTop) * 0.1;
+  const parallaxValue = 0;
   
   // Calculate wave effect for decorative elements
   const waveEffect = Math.sin(scrollY * 0.03) * 15;
 
   return (
-    <section id="about-section" className="relative overflow-hidden text-neutral-100">
+    <section 
+      id="about-section" 
+      className={`relative overflow-hidden text-neutral-100 transition-all duration-1000 motion-reduce:transition-none`}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? 'translateY(0)' : 'translateY(20px)'
+      }}
+    >
       {/* Backdrop texture with parallax - simplified for mobile */}
       {!isMobile && (
         <div 

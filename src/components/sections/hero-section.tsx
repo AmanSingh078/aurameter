@@ -10,7 +10,7 @@ import { checkCollegeExists, addCollegeNameOnly, registerAsCEO, addToWaitlist, f
 const HeroSection = () => {
   const { scrollY } = useScrollAnimation();
   const isMobile = useIsMobile();
-  const [isMounted, setIsMounted] = useState(false);
+  const [isInView, setIsInView] = useState(true); // Hero section is always in view initially
   const router = useRouter();
   
   // Form states
@@ -28,10 +28,8 @@ const HeroSection = () => {
   const [tempCollege, setTempCollege] = useState('');
   const collegeInputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    // Trigger mount animation
-    setIsMounted(true);
-  }, []);
+  // No need for mount animation since we're using scroll-based entrance
+  // The hero section will be visible immediately but with fade-in effect
 
   // Handle form input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -232,60 +230,23 @@ const HeroSection = () => {
 
   return (
     <>
-      <style>
-        {`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(2deg); }
-          }
-          
-          @keyframes shimmer {
-            0%, 100% { opacity: 0.3; transform: rotate(0deg); }
-            50% { opacity: 0.6; transform: rotate(180deg); }
-          }
-          
-          @keyframes pulse-gold {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.2); }
-          }
-          
-          @keyframes bounce {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(10px); }
-          }
-          
-          @keyframes click-effect {
-            0% { transform: scale(1); }
-            50% { transform: scale(0.95); }
-            100% { transform: scale(1); }
-          }
-          
-          // Removed unused animations
-          
-          .animate-pulse-gold {
-            animation: pulse-gold 2s ease-in-out infinite;
-          }
-          
-          .animate-bounce {
-            animation: bounce 2s ease-in-out infinite;
-          }
-          
-          .animate-click {
-            animation: click-effect 0.3s ease-in-out;
-          }
-        `}
-      </style>
-      
       {/* Premium Background Pattern - Simplified */}
       <div className="fixed inset-0 z-[-1]" aria-hidden="true">
         <div className="absolute inset-0 bg-transparent"></div>
       </div>
 
-      <section className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden py-10 px-4">
+      <section 
+        className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden py-10 px-4"
+        style={{
+          opacity: 1,
+          transform: 'translateY(0)',
+          transition: 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)'
+        }}
+      >
 
         {/* Main Heading */}
         <h1 
-          className={`text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 transition-all duration-1000 title ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-10'}`}
+          className="text-center text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 transition-all duration-1000 title"
           style={{
             fontFamily: 'var(--font-title)',
             background: 'linear-gradient(180deg, #ffffff 0%, #d4af37 100%)',
@@ -299,7 +260,7 @@ const HeroSection = () => {
 
         {/* Subtitle */}
         <p 
-          className={`text-center text-base md:text-lg max-w-2xl mb-4 transition-all duration-1000 delay-200 subtitle ${isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+          className="text-center text-base md:text-lg max-w-2xl mb-4 transition-all duration-1000 delay-200 subtitle"
           style={{
             color: 'rgba(255, 255, 255, 0.6)',
             lineHeight: '1.7',

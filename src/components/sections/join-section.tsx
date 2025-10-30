@@ -10,8 +10,29 @@ interface College {
 }
 
 export default function JoinSection() {
+  const [isInView, setIsInView] = useState(false);
   // State for tabs
   const [activeTab, setActiveTab] = useState<'waitlist' | 'ceo'>('waitlist');
+  
+  // Check if component is in view for animation
+  useEffect(() => {
+    const checkIfInView = () => {
+      const element = document.querySelector('.min-h-screen');
+      if (element) {
+        const rect = element.getBoundingClientRect();
+        setIsInView(rect.top < window.innerHeight * 0.8);
+      }
+    };
+
+    checkIfInView();
+    window.addEventListener('scroll', checkIfInView);
+    window.addEventListener('resize', checkIfInView);
+    
+    return () => {
+      window.removeEventListener('scroll', checkIfInView);
+      window.removeEventListener('resize', checkIfInView);
+    };
+  }, []);
   
   // State for waitlist form
   const [waitlistData, setWaitlistData] = useState({
@@ -288,7 +309,13 @@ export default function JoinSection() {
   }, [message]);
   
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div 
+      className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 transition-all duration-1000 motion-reduce:transition-none`}
+      style={{
+        opacity: isInView ? 1 : 0,
+        transform: isInView ? 'translateY(0)' : 'translateY(20px)'
+      }}
+    >
       <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
         <div className="p-8">
           <div className="flex justify-center mb-6">

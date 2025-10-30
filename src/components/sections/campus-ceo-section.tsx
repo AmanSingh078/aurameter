@@ -24,7 +24,7 @@ export default function CampusCEOSection() {
             LEAD YOUR CAMPUS
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            India's Biggest Campus CEO Program By <span className="bg-[linear-gradient(135deg,#d4af37_0%,#f4e5b8_50%,#d4af37_100%)] bg-clip-text text-transparent font-bold">Aurmeter</span>
+            India's Biggest Campus CEO Program By <span className="bg-[linear-gradient(135deg,#d4af37_0%,#f4e5b8_50%,#d4af37_100%)] bg-clip-text text-transparent font-bold">Aurameter</span>
           </h1>
         </div>
 
