@@ -127,7 +127,7 @@ const ContactSection = () => {
               </Link>
 
               <a
-                href="mailto:hello@aurameter.app"
+                href="mailto:support@aurameter.in"
                 className="px-6 py-3 md:px-8 md:py-4 border-2 border-white/30 rounded-full font-bold text-[14px] md:text-[16px] transition-all duration-300 hover:border-white/60 hover:bg-white/10 transform hover:scale-105"
                 style={
                   isMobile

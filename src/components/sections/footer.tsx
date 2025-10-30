@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const socialLinks = [
   { name: 'Instagram', href: 'https://www.instagram.com/app.aurameter/' },
@@ -112,7 +113,7 @@ export default function Footer() {
             </div>
 
             <a
-              href="mailto:hey@synchronized.studio"
+              href="mailto:Collaboration@aurameter.in"
               className="inline-flex items-center gap-2 text-[16px] sm:text-[18px] leading-[1.6] tracking-[0] font-normal hover:text-yellow-300 transition-colors duration-300 group animate-fade-in subtitle"
             >
               let's collaborate
@@ -125,6 +126,28 @@ export default function Footer() {
                 style={{ animationDuration: '4s' }}
               />
             </a>
+
+            <div className="flex flex-wrap gap-4 mt-4">
+              <Link 
+                href="/privacy-policy"
+                className="text-[16px] sm:text-[18px] leading-[1.6] tracking-[0] font-normal text-gray-400 hover:text-yellow-300 transition-colors duration-300 group animate-fade-in subtitle"
+              >
+                Privacy Policy
+              </Link>
+              <Link 
+                href="/child-safety"
+                className="text-[16px] sm:text-[18px] leading-[1.6] tracking-[0] font-normal text-gray-400 hover:text-yellow-300 transition-colors duration-300 group animate-fade-in subtitle"
+              >
+                Child Safety
+              </Link>
+            </div>
+
+            <Link 
+              href="/community-guidelines"
+              className="block mt-4 text-[16px] sm:text-[18px] leading-[1.6] tracking-[0] font-normal text-gray-400 hover:text-yellow-300 transition-colors duration-300 group animate-fade-in subtitle"
+            >
+              Community Guidelines
+            </Link>
 
             <div className="lg:hidden mt-10 sm:mt-12 text-center animate-fade-in">
               <p className="text-[12px] sm:text-[13px] leading-[1.5] tracking-[0] text-muted-foreground subtitle">
