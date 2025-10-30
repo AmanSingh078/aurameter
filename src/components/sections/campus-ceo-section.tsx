@@ -90,19 +90,19 @@ export default function CampusCEOSection() {
           <div className="bg-gray-900/50 border border-yellow-500/20 rounded-xl p-4 sm:p-6 md:p-8 lg:p-12 backdrop-blur-lg">
             <ul className="space-y-4 sm:space-y-5 md:space-y-6 mb-6 sm:mb-8 md:mb-10">
               <li className="bg-yellow-500/5 border-l-4 border-yellow-500 p-4 sm:p-5 rounded-r-lg transition-all duration-300 hover:bg-yellow-500/10">
-                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2">🎯 Lead</strong>
+                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2"> Lead</strong>
                 <span className="text-gray-300 text-base sm:text-lg">Be the face of Aurmeter on your campus and inspire your peers.</span>
               </li>
               <li className="bg-yellow-500/5 border-l-4 border-yellow-500 p-4 sm:p-5 rounded-r-lg transition-all duration-300 hover:bg-yellow-500/10">
-                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2">🤝 Connect</strong>
+                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2"> Connect</strong>
                 <span className="text-gray-300 text-base sm:text-lg">Build bonds with fellow tech lovers and a buzzing community.</span>
               </li>
               <li className="bg-yellow-500/5 border-l-4 border-yellow-500 p-4 sm:p-5 rounded-r-lg transition-all duration-300 hover:bg-yellow-500/10">
-                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2">🎊 Organise</strong>
+                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2"> Organise</strong>
                 <span className="text-gray-300 text-base sm:text-lg">Host fun events and activities that get everyone talking.</span>
               </li>
               <li className="bg-yellow-500/5 border-l-4 border-yellow-500 p-4 sm:p-5 rounded-r-lg transition-all duration-300 hover:bg-yellow-500/10">
-                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2">💡 Create</strong>
+                <strong className="text-yellow-500 text-lg sm:text-xl block mb-2"> Create</strong>
                 <span className="text-gray-300 text-base sm:text-lg">Bring your ideas to life with content and campaigns that stand out.</span>
               </li>
             </ul>
