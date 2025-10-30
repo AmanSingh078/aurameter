@@ -31,28 +31,58 @@ export default function CampusCEOSection() {
         <div className="bg-gray-900/50 border border-yellow-500/20 rounded-xl p-4 sm:p-6 md:p-8 lg:p-12 backdrop-blur-lg">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6 sm:mb-8 md:mb-10 text-yellow-500">Founder's Message</h2>
           
-          {/* Founders Layout with Photo in Center */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 md:gap-12 items-center mb-8 sm:mb-10 md:mb-12">
-            {/* Left Quote */}
-            <div className="bg-black/30 border-l-4 border-yellow-500 p-4 sm:p-5 md:p-6 rounded-r-lg">
-              <p className="text-gray-300 mb-3 sm:mb-4 italic text-base sm:text-lg">
-                Every big idea starts with one fearless believer.<br/>Aurameter was born from that same fire the urge to build something the world hasn't seen yet.<br/>I'm the same student like you  who once dreamed of doing something meaningful, something that could shape the future of India.<br/>I'm still learning, growing, and working every single day for that dream.<br/>Join me in this journey  you'll learn more than you can imagine, not from books, but from real impact.<br/>The Campus CEO Program isn't just a title - it's your chance to build, lead, and inspire change from your own campus.
+          {/* Founders Layout - Two attractive frames for both mobile and laptop */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10">
+            {/* Ankit Bhati's Message - Frame 1 */}
+            <div className="bg-gradient-to-br from-black/50 to-black/30 border-l-4 border-yellow-500 p-5 sm:p-6 rounded-r-xl backdrop-blur-sm hover:from-black/60 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+              <div className="flex items-start mb-4">
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-2 mr-4">
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+                </div>
+                <div>
+                  <h3 className="text-yellow-500 font-bold text-lg sm:text-xl">Vision & Passion</h3>
+                  <p className="text-gray-400 text-sm">Every big idea starts with one fearless believer</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">
+                Aurameter was born from that same fire – the urge to build something the world hasn't seen yet. I'm the same student like you who once dreamed of doing something meaningful, something that could shape the future of India.
               </p>
-              <p className="text-yellow-500 font-semibold text-base sm:text-lg">— Ankit Bhati</p>
-            </div>
-
-            {/* Center Photo */}
-            <div className="flex justify-center">
-              <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-xl border-4 border-yellow-500 bg-gray-800 flex items-center justify-center text-4xl sm:text-5xl shadow-[0_0_30px_rgba(212,175,55,0.2),0_4px_16px_rgba(0,0,0,0.8)]">
+              <p className="text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">
+                I'm still learning, growing, and working every single day for that dream. Join me in this journey – you'll learn more than you can imagine, not from books, but from real impact.
+              </p>
+              <p className="text-yellow-500 font-semibold text-sm sm:text-base italic mb-4">
+                "The Campus CEO Program isn't just a title – it's your chance to build, lead, and inspire change from your own campus."
+              </p>
+              <div className="pt-3 border-t border-yellow-500/20">
+                <p className="text-yellow-500 font-bold text-base sm:text-lg">— Ankit Bhati</p>
+                <p className="text-gray-400 text-sm">Co-Founder, Aurameter</p>
               </div>
             </div>
 
-            {/* Right Quote */}
-            <div className="bg-black/30 border-r-4 border-yellow-500 p-4 sm:p-5 md:p-6 rounded-l-lg">
-              <p className="text-gray-300 mb-3 sm:mb-4 italic text-base sm:text-lg">
-                The difference between dreamers and doers is just one step - action.<br/>We built Aurameter for the generation that doesn't wait for permission to create impact.<br/>The Campus CEO Program is for those who dare to be the face of change in their college.<br/>You'll not just represent a brand, you'll represent a mindset -<br/>that Gen Z can lead, innovate, and inspire on their own terms.<br/>Take that first step. The rest will follow.
+            {/* Nikhil Jha's Message - Frame 2 */}
+            <div className="bg-gradient-to-br from-black/50 to-black/30 border-r-4 border-yellow-500 p-5 sm:p-6 rounded-l-xl backdrop-blur-sm hover:from-black/60 transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+              <div className="flex items-start mb-4">
+                <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-2 mr-4">
+                  <div className="w-3 h-3 bg-yellow-500 rounded-full animate-pulse"></div>
+                </div>
+                <div>
+                  <h3 className="text-yellow-500 font-bold text-lg sm:text-xl">Action & Impact</h3>
+                  <p className="text-gray-400 text-sm">The difference between dreamers and doers</p>
+                </div>
+              </div>
+              <p className="text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">
+                We built Aurameter for the generation that doesn't wait for permission to create impact. The Campus CEO Program is for those who dare to be the face of change in their college.
               </p>
-              <p className="text-yellow-500 font-semibold text-base sm:text-lg">— Nikhil Jha</p>
+              <p className="text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">
+                You'll not just represent a brand, you'll represent a mindset – that Gen Z can lead, innovate, and inspire on their own terms.
+              </p>
+              <p className="text-yellow-500 font-semibold text-sm sm:text-base italic mb-4">
+                "Take that first step. The rest will follow."
+              </p>
+              <div className="pt-3 border-t border-yellow-500/20">
+                <p className="text-yellow-500 font-bold text-base sm:text-lg">— Nikhil Jha</p>
+                <p className="text-gray-400 text-sm">Co-Founder, Aurameter</p>
+              </div>
             </div>
           </div>
 
