@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 
 const AuraTestSection = () => {
   return (
-    <section className="relative overflow-hidden text-neutral-100 bg-black py-16 md:py-24">
+    <section className="relative overflow-hidden text-neutral-100 py-16 md:py-24">
       {/* Decorative elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"></div>

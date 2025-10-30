@@ -61,7 +61,7 @@ const AwardsSection = () => {
   }, []);
 
   return (
-    <section className={`bg-black py-8 md:py-12`} ref={sectionRef}>
+    <section className={`py-8 md:py-12`} ref={sectionRef}>
       <div className="container mx-auto px-4 flex flex-col items-center justify-center">
         {/* Centered Heading */}
         <div className="mb-12 text-center">
@@ -109,12 +109,12 @@ const AwardsSection = () => {
                     }`}
                   >
                     {/* Icon with golden accent ring */}
-                    <div className={`flex items-center justify-center ${iconSize} rounded-full bg-black border-2 border-white relative transition-all duration-500 ${
+                    <div className={`flex items-center justify-center ${iconSize} rounded-full bg-transparent border-2 border-white relative transition-all duration-500 ${
                       visibleItems[index] ? 'shadow-[0_0_20px_rgba(255,215,0,0.5)]' : 'shadow-none'
                     }`}>
                       <div className="absolute inset-0 rounded-full bg-gradient-to-r from-yellow-500/30 to-yellow-300/20 animate-pulse"></div>
                       <div className={`absolute inset-0 rounded-full bg-gradient-to-r from-yellow-500/20 to-yellow-300/10 blur-sm`}></div>
-                      <div className="relative z-10 flex items-center justify-center w-full h-full rounded-full bg-black">
+                      <div className="relative z-10 flex items-center justify-center w-full h-full rounded-full bg-transparent">
                         <div className={`${iconTextSize} text-white`}>{reward.icon}</div>
                       </div>
                     </div>
