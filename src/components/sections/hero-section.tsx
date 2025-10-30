@@ -307,7 +307,7 @@ const HeroSection = () => {
             fontSize: '1.25rem'
           }}
         >
-          AuraMeter is an AI-powered emotional social app that measures and enhances your aura — your emotional energy and positivity.
+          Farm your aura. Reap your rewards. Powered by Aura AI
         </p>
 
         {/* Email and College Input Form */}

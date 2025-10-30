@@ -21,7 +21,7 @@ export default function CampusCEOSection() {
         <div className="text-center mb-12 sm:mb-16">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 sm:px-6 sm:py-2 bg-yellow-500/5 border border-yellow-500/25 rounded-full text-xs text-white/70 mb-4 sm:mb-6 backdrop-blur-lg uppercase font-medium tracking-wider">
             <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-[linear-gradient(135deg,#d4af37,#f4e5b8)] rounded-full shadow-[0_0_15px_rgba(212,175,55,0.8)] animate-pulse-gold"></div>
-            AURAMETER CAMPUS CEO PROGRAM
+            LEAD YOUR CAMPUS
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
             India's Biggest Campus CEO Program By <span className="bg-[linear-gradient(135deg,#d4af37_0%,#f4e5b8_50%,#d4af37_100%)] bg-clip-text text-transparent font-bold">Aurmeter</span>

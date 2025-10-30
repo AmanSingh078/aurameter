@@ -112,8 +112,16 @@ const ContactSection = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mb-6">
-              <Link
-                href="/waitlist"
+              <button
+                onClick={() => {
+                  const heroSection = document.getElementById('hero');
+                  if (heroSection) {
+                    heroSection.scrollIntoView({ 
+                      behavior: 'smooth',
+                      block: 'start'
+                    });
+                  }
+                }}
                 className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-yellow-600 to-yellow-700 rounded-full font-bold text-[14px] md:text-[16px] transition-all duration-300 hover:from-yellow-500 hover:to-yellow-600 transform hover:scale-105"
                 style={
                   isMobile
@@ -124,7 +132,7 @@ const ContactSection = () => {
                 }
               >
                 <span className="relative z-10">→ Join the Waitlist</span>
-              </Link>
+              </button>
 
               <a
                 href="mailto:support@aurameter.in"
