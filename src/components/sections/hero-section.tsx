@@ -230,10 +230,7 @@ const HeroSection = () => {
 
   return (
     <>
-      {/* Premium Background Pattern - Simplified */}
-      <div className="fixed inset-0 z-[-1]" aria-hidden="true">
-        <div className="absolute inset-0 bg-transparent"></div>
-      </div>
+      {/* Removed transparent background div that was potentially interfering with main background */}
 
       <section 
         className="relative flex flex-col items-center justify-center min-h-screen text-white overflow-hidden py-10 px-4"

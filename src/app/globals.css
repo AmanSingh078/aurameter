@@ -396,11 +396,12 @@
     line-height: 1.6;
     
     /* Full website background image */
-    background-image: url('/pawel-czerwinski-2zJ3m80fSU4-unsplash.jpg');
-    background-position: center top;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
+    background-image: url('/image/Desktop%20-%20Light%20Mode%20(2).png') !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    z-index: -1;
   }
 
   /* Remove complex background effects */
