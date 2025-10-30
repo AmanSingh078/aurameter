@@ -4,12 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 
 const socialLinks = [
-  { name: 'Dribbble', href: 'https://dribbble.com/Synchronized' },
-  { name: 'Behance', href: 'https://www.behance.net/Synchronized_Studio' },
-  { name: 'Instagram', href: 'https://www.instagram.com/synchronized.studio/' },
-  { name: 'Linkedin', href: 'https://www.linkedin.com/company/synchronized-studio' },
-  { name: 'twitter', href: 'https://twitter.com/synchronized_st' },
-  { name: 'Facebook', href: 'https://www.facebook.com/synchronized.studio' },
+  { name: 'Instagram', href: 'https://www.instagram.com/app.aurameter/' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/aurameter/posts/?feedView=all' },
 ];
 
 const faceSvgUrl = "https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/test-clones/90045eb5-1278-4866-96fd-694b701cd2a9-synchronized-studio/assets/svgs/face-7.svg?";
