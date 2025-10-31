@@ -3,14 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '@/lib/hooks/use-scroll-animation';
 import { useIsMobile } from '@/hooks/use-mobile';
-
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  bio: string;
-}
+import Image from 'next/image';
+import { teamMembers, TeamMember } from '@/data/team-data';
 
 const TeamSection = () => {
   const { scrollY } = useScrollAnimation();
@@ -18,18 +12,6 @@ const TeamSection = () => {
   const [isInView, setIsInView] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   
-  // Roles and names arrays
-  const roles = ['Developer', 'Designer', 'Product Manager', 'Marketing Lead', 'DevOps Engineer', 'UX Designer', 'Data Scientist', 'QA Engineer'];
-  const names = [
-    'Alex Morgan', 'Sarah Chen', 'Marcus Rivera', 'Emily Zhang', 'James Carter', 'Nina Patel',
-    'David Kim', 'Rachel Adams', 'Tom Wilson', 'Lisa Brown', 'Chris Lee', 'Anna Martinez',
-    'Mike Johnson', 'Sophie Taylor', 'John Anderson', 'Maria Garcia', 'Robert Smith', 'Jessica Davis',
-    'Daniel White', 'Laura Thompson', 'Kevin Moore', 'Amy Jackson', 'Brian Harris', 'Emma Clark',
-    'Ryan Lewis', 'Olivia Walker', 'Jason Hall', 'Mia Allen', 'Eric Young', 'Grace King',
-    'Sam Wright', 'Chloe Lopez', 'Tyler Hill', 'Zoe Scott', 'Jordan Green', 'Hannah Adams',
-    'Austin Baker', 'Lily Nelson', 'Brandon Carter', 'Sophia Mitchell'
-  ];
-
   // Generate team members
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [currentMemberIndex, setCurrentMemberIndex] = useState<number>(0);
@@ -40,19 +22,7 @@ const TeamSection = () => {
 
   // Initialize members
   useEffect(() => {
-    const generatedMembers: TeamMember[] = [];
-    for (let i = 0; i < 40; i++) {
-      const gender = i % 2 === 0 ? 'men' : 'women';
-      const randomNum = Math.floor(Math.random() * 90) + 1;
-      generatedMembers.push({
-        id: i + 1,
-        name: names[i],
-        role: roles[i % roles.length],
-        image: `https://randomuser.me/api/portraits/${gender}/${randomNum}.jpg`,
-        bio: `Experienced professional with expertise in ${roles[i % roles.length]}. Passionate about innovation and collaboration.`
-      });
-    }
-    setMembers(generatedMembers);
+    setMembers(teamMembers);
   }, []);
 
   // Check if element is in view
@@ -89,7 +59,7 @@ const TeamSection = () => {
     const memberSize = isMobile ? 45 : 70;
 
     const positions = members.map((_, index) => {
-      const angle = (360 / 40) * index;
+      const angle = (360 / members.length) * index;
       const radian = (angle * Math.PI) / 180;
       
       const x = radius * Math.cos(radian);
@@ -118,7 +88,7 @@ const TeamSection = () => {
   useEffect(() => {
     if (autoShowActive && members.length > 0) {
       autoShowIntervalRef.current = setInterval(() => {
-        setCurrentMemberIndex(prev => (prev + 1) % 40);
+        setCurrentMemberIndex(prev => (prev + 1) % members.length);
       }, 3000);
     } else if (autoShowIntervalRef.current) {
       clearInterval(autoShowIntervalRef.current);
@@ -215,7 +185,7 @@ const TeamSection = () => {
             </h1>
             <div className="w-20 sm:w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto my-6 md:my-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg tracking-widest text-gray-300 font-serif italic font-bold">
-              40 Creative Minds
+              Our Creative Team
             </p>
           </div>
 
@@ -291,7 +261,7 @@ const TeamSection = () => {
                 ) : (
                   // Default View
                   <div className="default-view">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 font-serif italic text-white">40</h2>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 font-serif italic text-white">{members.length}</h2>
                     <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-gray-500 font-serif italic">TAP ANY MEMBER</p>
                   </div>
                 )}
