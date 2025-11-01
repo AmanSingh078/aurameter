@@ -84,22 +84,26 @@ const TeamSection = () => {
     setAutoShowActive(!autoShowActive);
   };
 
-  // Auto-show effect
+  // Auto-show effect with longer duration for co-founders
   useEffect(() => {
     if (autoShowActive && members.length > 0) {
-      autoShowIntervalRef.current = setInterval(() => {
+      const currentMember = members[currentMemberIndex];
+      const isCoFounder = currentMember?.role === 'Co-Founder Aurameter';
+      const duration = isCoFounder ? 6000 : 3000; // 6 seconds for co-founders, 3 seconds for others
+      
+      autoShowIntervalRef.current = setTimeout(() => {
         setCurrentMemberIndex(prev => (prev + 1) % members.length);
-      }, 3000);
+      }, duration);
     } else if (autoShowIntervalRef.current) {
-      clearInterval(autoShowIntervalRef.current);
+      clearTimeout(autoShowIntervalRef.current);
     }
 
     return () => {
       if (autoShowIntervalRef.current) {
-        clearInterval(autoShowIntervalRef.current);
+        clearTimeout(autoShowIntervalRef.current);
       }
     };
-  }, [autoShowActive, members.length]);
+  }, [autoShowActive, members.length, currentMemberIndex]);
 
   // Handle resize
   useEffect(() => {

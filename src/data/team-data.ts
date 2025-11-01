@@ -33,7 +33,7 @@ const getRoleBio = (role: string): string => {
     'Creative team and Social media': 'Creative professional managing social media presence and engagement.',
     'Marketing': 'Marketing specialist driving brand awareness and customer acquisition.',
     'Editior': 'Editorial expert ensuring content quality and brand consistency.',
-    'Content team lead': 'Content strategy leader overseeing editorial direction and team coordination.'
+    'Creative team lead': 'Creative strategy leader overseeing editorial direction and team coordination.'
   };
   
   return roleBios[role] || 'Dedicated team member contributing to innovative solutions and company success.';
@@ -304,11 +304,51 @@ export const teamMembers: TeamMember[] = [
   {
     id: 27,
     name: 'Tanu Singh Attri',
-    role: 'Content team lead',
+    role: 'Creative team lead',
     image: '/image/team numbers photos/WhatsApp Image 2025-10-31 at 23.16.34_b194b8e7.jpg',
-    bio: getRoleBio('Content team lead'),
+    bio: getRoleBio('Creative team lead'),
     socialMedia: {
       linkedin: 'https://www.linkedin.com/in/tanu-singh-attri-aa22b7339/'
+    }
+  },
+  {
+    id: 28,
+    name: 'Rachita',
+    role: 'Creative team',
+    image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.34.23_2f83adaf.jpg',
+    bio: getRoleBio('Creative team'),
+    socialMedia: {
+      linkedin: 'https://www.linkedin.com/in/rachitatripathy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+    }
+  },
+  {
+    id: 29,
+    name: 'Shailendra',
+    role: 'Creative team',
+    image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.43.50_9cce1742.jpg',
+    bio: getRoleBio('Creative team'),
+    socialMedia: {
+      linkedin: 'https://www.linkedin.com/in/shailendra-rai-28a62833a?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+    }
+  },
+  {
+    id: 30,
+    name: 'Saanvi',
+    role: 'Product development and Creative team',
+    image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.39.06_a6c30908.jpg',
+    bio: getRoleBio('Product development and Creative team'),
+    socialMedia: {
+      linkedin: 'https://www.linkedin.com/in/saanvi-soni-3308a8251?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
+    }
+  },
+  {
+    id: 31,
+    name: 'Nakshita',
+    role: 'Creator and brand relations manager',
+    image: '/image/team numbers photos/IMG_5152 - nakshita.jpeg',
+    bio: getRoleBio('Creator and brand relations manager'),
+    socialMedia: {
+      linkedin: 'https://www.linkedin.com/in/nakshita-b5011b280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app'
     }
   }
 ];
