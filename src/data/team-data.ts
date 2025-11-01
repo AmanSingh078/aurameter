@@ -275,7 +275,7 @@ export const teamMembers: TeamMember[] = [
     id: 24,
     name: 'Rachita Tripathy',
     role: 'Brand Relation Manager',
-    image: '/image/team numbers photos/IMG-20251010-WA0073 - Rachita Tripathy.jpg',
+    image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.34.23_2f83adaf.jpg',
     bio: getRoleBio('Brand Relation Manager'),
     socialMedia: {
       linkedin: 'https://www.linkedin.com/in/rachitatripathy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app',
@@ -313,16 +313,6 @@ export const teamMembers: TeamMember[] = [
   },
   {
     id: 28,
-    name: 'Rachita',
-    role: 'Creative team',
-    image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.34.23_2f83adaf.jpg',
-    bio: getRoleBio('Creative team'),
-    socialMedia: {
-      linkedin: 'https://www.linkedin.com/in/rachitatripathy?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'
-    }
-  },
-  {
-    id: 29,
     name: 'Shailendra',
     role: 'Creative team',
     image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.43.50_9cce1742.jpg',
@@ -332,7 +322,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    id: 30,
+    id: 29,
     name: 'Saanvi',
     role: 'Product development and Creative team',
     image: '/image/team numbers photos/WhatsApp Image 2025-11-01 at 12.39.06_a6c30908.jpg',
@@ -342,7 +332,7 @@ export const teamMembers: TeamMember[] = [
     }
   },
   {
-    id: 31,
+    id: 30,
     name: 'Nakshita',
     role: 'Creator and brand relations manager',
     image: '/image/team numbers photos/IMG_5152 - nakshita.jpeg',
