@@ -89,7 +89,7 @@ const TeamSection = () => {
     if (autoShowActive && members.length > 0) {
       const currentMember = members[currentMemberIndex];
       const isCoFounder = currentMember?.role === 'Co-Founder Aurameter';
-      const duration = isCoFounder ? 6000 : 3000; // 6 seconds for co-founders, 3 seconds for others
+      const duration = isCoFounder ? 5000 : 3000; // 5 seconds for co-founders, 3 seconds for others
       
       autoShowIntervalRef.current = setTimeout(() => {
         setCurrentMemberIndex(prev => (prev + 1) % members.length);
