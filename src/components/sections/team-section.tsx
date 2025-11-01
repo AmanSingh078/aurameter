@@ -3,14 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useScrollAnimation } from '@/lib/hooks/use-scroll-animation';
 import { useIsMobile } from '@/hooks/use-mobile';
-
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  bio: string;
-}
+import Image from 'next/image';
+import { teamMembers, TeamMember } from '@/data/team-data';
 
 const TeamSection = () => {
   const { scrollY } = useScrollAnimation();
@@ -18,18 +12,6 @@ const TeamSection = () => {
   const [isInView, setIsInView] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   
-  // Roles and names arrays
-  const roles = ['Developer', 'Designer', 'Product Manager', 'Marketing Lead', 'DevOps Engineer', 'UX Designer', 'Data Scientist', 'QA Engineer'];
-  const names = [
-    'Alex Morgan', 'Sarah Chen', 'Marcus Rivera', 'Emily Zhang', 'James Carter', 'Nina Patel',
-    'David Kim', 'Rachel Adams', 'Tom Wilson', 'Lisa Brown', 'Chris Lee', 'Anna Martinez',
-    'Mike Johnson', 'Sophie Taylor', 'John Anderson', 'Maria Garcia', 'Robert Smith', 'Jessica Davis',
-    'Daniel White', 'Laura Thompson', 'Kevin Moore', 'Amy Jackson', 'Brian Harris', 'Emma Clark',
-    'Ryan Lewis', 'Olivia Walker', 'Jason Hall', 'Mia Allen', 'Eric Young', 'Grace King',
-    'Sam Wright', 'Chloe Lopez', 'Tyler Hill', 'Zoe Scott', 'Jordan Green', 'Hannah Adams',
-    'Austin Baker', 'Lily Nelson', 'Brandon Carter', 'Sophia Mitchell'
-  ];
-
   // Generate team members
   const [members, setMembers] = useState<TeamMember[]>([]);
   const [currentMemberIndex, setCurrentMemberIndex] = useState<number>(0);
@@ -40,19 +22,7 @@ const TeamSection = () => {
 
   // Initialize members
   useEffect(() => {
-    const generatedMembers: TeamMember[] = [];
-    for (let i = 0; i < 40; i++) {
-      const gender = i % 2 === 0 ? 'men' : 'women';
-      const randomNum = Math.floor(Math.random() * 90) + 1;
-      generatedMembers.push({
-        id: i + 1,
-        name: names[i],
-        role: roles[i % roles.length],
-        image: `https://randomuser.me/api/portraits/${gender}/${randomNum}.jpg`,
-        bio: `Experienced professional with expertise in ${roles[i % roles.length]}. Passionate about innovation and collaboration.`
-      });
-    }
-    setMembers(generatedMembers);
+    setMembers(teamMembers);
   }, []);
 
   // Check if element is in view
@@ -89,7 +59,7 @@ const TeamSection = () => {
     const memberSize = isMobile ? 45 : 70;
 
     const positions = members.map((_, index) => {
-      const angle = (360 / 40) * index;
+      const angle = (360 / members.length) * index;
       const radian = (angle * Math.PI) / 180;
       
       const x = radius * Math.cos(radian);
@@ -114,22 +84,26 @@ const TeamSection = () => {
     setAutoShowActive(!autoShowActive);
   };
 
-  // Auto-show effect
+  // Auto-show effect with longer duration for co-founders
   useEffect(() => {
     if (autoShowActive && members.length > 0) {
-      autoShowIntervalRef.current = setInterval(() => {
-        setCurrentMemberIndex(prev => (prev + 1) % 40);
-      }, 3000);
+      const currentMember = members[currentMemberIndex];
+      const isCoFounder = currentMember?.role === 'Co-Founder Aurameter';
+      const duration = isCoFounder ? 5000 : 3000; // 5 seconds for co-founders, 3 seconds for others
+      
+      autoShowIntervalRef.current = setTimeout(() => {
+        setCurrentMemberIndex(prev => (prev + 1) % members.length);
+      }, duration);
     } else if (autoShowIntervalRef.current) {
-      clearInterval(autoShowIntervalRef.current);
+      clearTimeout(autoShowIntervalRef.current);
     }
 
     return () => {
       if (autoShowIntervalRef.current) {
-        clearInterval(autoShowIntervalRef.current);
+        clearTimeout(autoShowIntervalRef.current);
       }
     };
-  }, [autoShowActive, members.length]);
+  }, [autoShowActive, members.length, currentMemberIndex]);
 
   // Handle resize
   useEffect(() => {
@@ -215,7 +189,7 @@ const TeamSection = () => {
             </h1>
             <div className="w-20 sm:w-24 md:w-32 h-1 bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto my-6 md:my-8 rounded-full"></div>
             <p className="text-sm sm:text-base md:text-lg tracking-widest text-gray-300 font-serif italic font-bold">
-              40 Creative Minds
+              Our Creative Team
             </p>
           </div>
 
@@ -223,7 +197,7 @@ const TeamSection = () => {
           <div className="main-content flex items-center justify-center w-full relative">
             <div 
               ref={circleContainerRef}
-              className="circle-container relative w-[85vw] h-[85vw] sm:w-[75vw] sm:h-[75vw] md:w-[70vw] md:h-[70vw] max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] max-h-[300px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]"
+              className="circle-container relative w-[90vw] h-[90vw] sm:w-[75vw] sm:h-[75vw] md:w-[70vw] md:h-[70vw] max-w-[320px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] max-h-[320px] sm:max-h-[400px] md:max-h-[500px] lg:max-h-[600px]"
             >
               {/* Member Photos */}
               {members.length > 0 && circlePositions.length > 0 && circlePositions.map((position, index) => (
@@ -235,8 +209,8 @@ const TeamSection = () => {
                       : 'border-white'
                   }`}
                   style={{
-                    width: isMobile ? '40px' : '60px',
-                    height: isMobile ? '40px' : '60px',
+                    width: isMobile ? '35px' : '60px',
+                    height: isMobile ? '35px' : '60px',
                     left: position.left,
                     top: position.top,
                   }}
@@ -256,7 +230,7 @@ const TeamSection = () => {
 
               {/* Center Info */}
               <div 
-                className={`center-info absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 w-[65%] sm:w-[70%] max-w-[200px] sm:max-w-[280px] md:max-w-[320px] cursor-pointer transition-opacity duration-300 ${
+                className={`center-info absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-10 w-[70%] sm:w-[70%] max-w-[220px] sm:max-w-[280px] md:max-w-[320px] cursor-pointer transition-opacity duration-300 ${
                   autoShowActive ? 'opacity-100' : 'opacity-70'
                 }`}
                 onClick={toggleAutoShow}
@@ -265,7 +239,7 @@ const TeamSection = () => {
                   <>
                     {/* Member Detail View */}
                     <div className="detail-view">
-                      <div className="center-image w-[70px] sm:w-[90px] md:w-[100px] lg:w-[120px] h-[70px] sm:h-[90px] md:h-[100px] lg:h-[120px] rounded-full border-2 sm:border-2 md:border-[3px] lg:border-[3px] border-white overflow-hidden mx-auto mb-3 sm:mb-4 md:mb-4 animate-fade-in-scale">
+                      <div className="center-image w-[60px] sm:w-[90px] md:w-[100px] lg:w-[120px] h-[60px] sm:h-[90px] md:h-[100px] lg:h-[120px] rounded-full border-2 sm:border-2 md:border-[3px] lg:border-[3px] border-white overflow-hidden mx-auto mb-2 sm:mb-4 md:mb-4 animate-fade-in-scale">
                         <img 
                           src={currentMember.image} 
                           alt={currentMember.name} 
@@ -275,15 +249,15 @@ const TeamSection = () => {
                       <div className="member-number text-[10px] sm:text-xs md:text-sm tracking-widest text-gray-500 mb-1 md:mb-2 font-serif italic">
                         MEMBER {String(currentMember.id).padStart(2, '0')}
                       </div>
-                      <h2 className="member-name text-lg sm:text-xl md:text-3xl lg:text-4xl font-serif font-bold italic uppercase leading-tight mb-2 md:mb-3 text-white title" style={{
+                      <h2 className="member-name text-sm sm:text-xl md:text-3xl lg:text-4xl font-serif font-bold italic uppercase leading-tight mb-1 sm:mb-2 md:mb-3 text-white title" style={{
                         fontFamily: 'var(--font-title)',
                       }}>
                         {currentMember.name}
                       </h2>
-                      <div className="member-role text-[10px] sm:text-xs md:text-sm tracking-widest uppercase text-gray-400 py-1 sm:py-2 md:py-2 border-t border-b border-white my-2 md:my-3 font-serif italic">
+                      <div className="member-role text-[7px] sm:text-xs md:text-sm tracking-wide sm:tracking-widest uppercase text-gray-400 py-0 sm:py-2 md:py-2 sm:border-t sm:border-b border-white my-1 sm:my-2 md:my-3 font-serif italic">
                         {currentMember.role}
                       </div>
-                      <p className="member-bio text-[10px] sm:text-xs md:text-sm text-gray-300 leading-relaxed mb-3 md:mb-4 hidden sm:block animate-slide-up-details font-serif subtitle">
+                      <p className="member-bio text-[8px] sm:text-xs md:text-sm text-gray-300 leading-relaxed mb-2 sm:mb-3 md:mb-4 hidden sm:block animate-slide-up-details font-serif subtitle">
                         {currentMember.bio}
                       </p>
                     </div>
@@ -291,7 +265,7 @@ const TeamSection = () => {
                 ) : (
                   // Default View
                   <div className="default-view">
-                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 font-serif italic text-white">40</h2>
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-1 font-serif italic text-white">{members.length}</h2>
                     <p className="text-[10px] sm:text-xs md:text-sm tracking-widest text-gray-500 font-serif italic">TAP ANY MEMBER</p>
                   </div>
                 )}

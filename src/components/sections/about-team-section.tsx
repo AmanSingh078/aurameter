@@ -2,24 +2,10 @@
 
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
-
-interface TeamMember {
-  id: number;
-  name: string;
-  role: string;
-  image: string;
-  description: string;
-}
+import { teamMembers, TeamMember } from '@/data/team-data';
 
 const AboutTeamSection = () => {
-  // Generate 20 team members
-  const teamMembers: TeamMember[] = Array.from({ length: 20 }, (_, i) => ({
-    id: i + 1,
-    name: `TEAM MEMBER ${String(i + 1).padStart(2, '0')}`,
-    role: i % 2 === 0 ? "creative leader" : "strategy director",
-    image: `https://randomuser.me/api/portraits/${i % 2 === 0 ? 'women' : 'men'}/${(i % 50) + 1}.jpg`,
-    description: "Glavi amet ritnisl libero molestie ante ut fringilla purus eros quis glavrid from dolor amet iquam lorem bibendum"
-  }));
+
 
   const handlePhotoClick = (e: React.MouseEvent<HTMLImageElement>) => {
     const target = e.currentTarget;
@@ -65,49 +51,57 @@ const AboutTeamSection = () => {
                 {member.role}
               </p>
               <p className="text-[10px] xs:text-xs sm:text-sm leading-[1.6] text-gray-300 mb-3 px-1 sm:px-2 break-words subtitle">
-                {member.description}
+                {member.bio}
               </p>
               <div className="flex justify-center gap-2 sm:gap-3 md:gap-4">
-                <a 
-                  href="#" 
-                  aria-label="Facebook"
-                  className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
-                  onMouseEnter={(e) => handleSocialIconHover(e, true)}
-                  onMouseLeave={(e) => handleSocialIconHover(e, false)}
-                  style={{ transition: 'all 0.3s ease' }}
-                >
-                  <FaFacebookF />
-                </a>
-                <a 
-                  href="#" 
-                  aria-label="Twitter"
-                  className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
-                  onMouseEnter={(e) => handleSocialIconHover(e, true)}
-                  onMouseLeave={(e) => handleSocialIconHover(e, false)}
-                  style={{ transition: 'all 0.3s ease' }}
-                >
-                  <FaTwitter />
-                </a>
-                <a 
-                  href="#" 
-                  aria-label="Instagram"
-                  className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
-                  onMouseEnter={(e) => handleSocialIconHover(e, true)}
-                  onMouseLeave={(e) => handleSocialIconHover(e, false)}
-                  style={{ transition: 'all 0.3s ease' }}
-                >
-                  <FaInstagram />
-                </a>
-                <a 
-                  href="#" 
-                  aria-label="LinkedIn"
-                  className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
-                  onMouseEnter={(e) => handleSocialIconHover(e, true)}
-                  onMouseLeave={(e) => handleSocialIconHover(e, false)}
-                  style={{ transition: 'all 0.3s ease' }}
-                >
-                  <FaLinkedinIn />
-                </a>
+                {member.socialMedia?.facebook && (
+                  <a 
+                    href={member.socialMedia.facebook} 
+                    aria-label="Facebook"
+                    className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
+                    onMouseEnter={(e) => handleSocialIconHover(e, true)}
+                    onMouseLeave={(e) => handleSocialIconHover(e, false)}
+                    style={{ transition: 'all 0.3s ease' }}
+                  >
+                    <FaFacebookF />
+                  </a>
+                )}
+                {member.socialMedia?.twitter && (
+                  <a 
+                    href={member.socialMedia.twitter} 
+                    aria-label="Twitter"
+                    className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
+                    onMouseEnter={(e) => handleSocialIconHover(e, true)}
+                    onMouseLeave={(e) => handleSocialIconHover(e, false)}
+                    style={{ transition: 'all 0.3s ease' }}
+                  >
+                    <FaTwitter />
+                  </a>
+                )}
+                {member.socialMedia?.instagram && (
+                  <a 
+                    href={member.socialMedia.instagram} 
+                    aria-label="Instagram"
+                    className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
+                    onMouseEnter={(e) => handleSocialIconHover(e, true)}
+                    onMouseLeave={(e) => handleSocialIconHover(e, false)}
+                    style={{ transition: 'all 0.3s ease' }}
+                  >
+                    <FaInstagram />
+                  </a>
+                )}
+                {member.socialMedia?.linkedin && (
+                  <a 
+                    href={member.socialMedia.linkedin} 
+                    aria-label="LinkedIn"
+                    className="text-white text-base sm:text-lg md:text-xl transition-all duration-300 no-underline hover:text-[#FFD700]"
+                    onMouseEnter={(e) => handleSocialIconHover(e, true)}
+                    onMouseLeave={(e) => handleSocialIconHover(e, false)}
+                    style={{ transition: 'all 0.3s ease' }}
+                  >
+                    <FaLinkedinIn />
+                  </a>
+                )}
               </div>
             </div>
           ))}
